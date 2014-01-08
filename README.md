@@ -65,7 +65,12 @@ http://tiheum.deviantart.com/art/Faience-icon-theme-255099649
     sudo apt-get install faience-theme faience-icon-theme
 ```
 
-
+###### Compass Icons
+```bash
+   sudo ppa:noobslab/nitrux-os
+   sudo apt-get update
+   sudo apt-get install compass-icons
+```
 _ _ _
 
 ### Comandos
