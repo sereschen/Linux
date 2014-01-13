@@ -111,7 +111,7 @@ _ _ _
 ### Subir Archivos SSH
 
 ```bash
-scp FILE USER@SERVER:LOCATION
+	scp FILE USER@SERVER:LOCATION
 ```
 
 	
