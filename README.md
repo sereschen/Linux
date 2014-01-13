@@ -108,6 +108,9 @@ _ _ _
 	/usr/bin/udisks --mount /dev/disk/by-uuid/e2a5bf75-e511-4330-9f1e-efc114b9a47e
 ```
 
-
+### Subir Archivos SSH
+´´´bash
+scp FILE USER@SERVER:LOCATION
+´´´
 
 	
