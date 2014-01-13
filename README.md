@@ -109,8 +109,9 @@ _ _ _
 ```
 
 ### Subir Archivos SSH
-´´´bash
+
+```bash
 scp FILE USER@SERVER:LOCATION
-´´´
+```
 
 	
