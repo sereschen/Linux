@@ -25,6 +25,7 @@
 - nodejs
 - python-software-properties
 - software-properties-common
+- nodejs-legacy
 - npm
 - yum
 
