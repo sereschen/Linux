@@ -30,19 +30,19 @@
 
 ```bash
     # timeshift
-    sudo apt-add-repository -y ppa:teejee2008/ppa
-    sudo apt-get update
-    sudo apt-get install timeshift
+   $ sudo apt-add-repository -y ppa:teejee2008/ppa
+   $ sudo apt-get update
+   $ sudo apt-get install timeshift
     
     # Nitro Task
-    sudo add-apt-repository ppa:cooperjona/nitrotasks
-    sudo apt-get update
-    sudo apt-get install nitrotasks
+   $ sudo add-apt-repository ppa:cooperjona/nitrotasks
+   $ sudo apt-get update
+   $ sudo apt-get install nitrotasks
     
     # Nodejs
-    sudo add-apt-repository -y ppa:chris-lea/node.js
-    sudo apt-get update
-    sudo apt-get install nodejs
+   $ sudo add-apt-repository -y ppa:chris-lea/node.js
+   $ sudo apt-get update
+   $ sudo apt-get install nodejs
 ```
 
 - - - - - - - -
@@ -60,17 +60,46 @@
 ###### Faience
 http://tiheum.deviantart.com/art/Faience-icon-theme-255099649
 ```bash
-    sudo add-apt-repository ppa:tiheum/equinox
-    sudo apt-get update
-    sudo apt-get install faience-theme faience-icon-theme
+   $ sudo add-apt-repository ppa:tiheum/equinox
+   $ sudo apt-get update
+   $ sudo apt-get install faience-theme faience-icon-theme
 ```
 
 ###### Compass Icons
 ```bash
-   sudo ppa:noobslab/nitrux-os
-   sudo apt-get update
-   sudo apt-get install compass-icons
+   $ sudo ppa:noobslab/nitrux-os
+   $ sudo apt-get update
+   $ sudo apt-get install compass-icons
 ```
+
+###### Elementary Icons
+```bash
+   $ sudo ppa:noobslab/nitrux-os
+   $ sudo apt-get update
+   $ sudo apt-get install elementary-icon-theme
+```
+
+###### Elementary Icons
+```bash
+   $ sudo ppa:noobslab/nitrux-os
+   $ sudo apt-get update
+   $ sudo apt-get install elementary-icon-theme
+```
+
+###### Pacifica Icons
+```bash
+   $ sudo add-apt-repository ppa:fsvh/pacifica-icon-theme
+   $ sudo apt-get update
+   $ sudo apt-get install pacifica-icon-theme
+```
+
+###### Nitrux Icons
+```bash
+   $ sudo add-apt-repository ppa:upubuntu-com/nitrux
+   $ sudo apt-get update
+   $ sudo apt-get install nitruxos
+```
+
 _ _ _
 
 ### Comandos
