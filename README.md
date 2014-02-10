@@ -1,4 +1,4 @@
-###	Programas Necesarios
+###	Programs
 
 
 - Cairo-Dock
@@ -138,10 +138,24 @@ _ _ _
 	/usr/bin/udisks --mount /dev/disk/by-uuid/e2a5bf75-e511-4330-9f1e-efc114b9a47e
 ```
 
-### Subir Archivos SSH
+### Upload Files SSH
 
 ```bash
 	scp FILE USER@SERVER:LOCATION
 ```
 
+### Download full website
+
+```bash
+wget \
+     --recursive \
+     --no-clobber \
+     --page-requisites \
+     --html-extension \
+     --convert-links \
+     --restrict-file-names=windows \
+     --domains mmenu.frebsite.nl \
+     --no-parent \
+         mmenu.frebsite.nl/examples/responsive/
+```
 	
