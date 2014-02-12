@@ -158,4 +158,58 @@ wget \
      --no-parent \
          mmenu.frebsite.nl/examples/responsive/
 ```
+
+### Cron
+
+
+- View Root User Cronjob
+
+```bash
+	$ crontab -l
+```
+
+- View Users Cronjob
+
+```bash
+	$ crontab -u userName -l
+	$ crontab -u vivek -l
+```
+
+- Install or create or edit my own cron jobs
+
+```bash
+	$ crontab -e
+```
+
+- Syntax of crontab
+
+
+```bash
+	1 2 3 4 5 /path/to/command arg1 arg2	
+
+	# or
 	
+	1 2 3 4 5 /root/backup.sh
+	
+	# or
+	
+	1 2 3 4 5 USERNAME /path/to/command arg1 arg2
+	
+	# Format
+
+	* * * * * command to be executed
+	- - - - -
+	| | | | |
+	| | | | ----- Day of week (0 - 7) (Sunday=0 or 7)
+	| | | ------- Month (1 - 12)
+	| | --------- Day of month (1 - 31)
+	| ----------- Hour (0 - 23)
+	------------- Minute (0 - 59)
+```
+
+
+
+
+
+
+
