@@ -178,7 +178,8 @@ on_iwhite="\[\e[0;107m\]"
 
 
 function git_branch {
-   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
+   # echo $(git symbolic-ref HEAD 2>/dev/null | awk -F/ {'print $NF'})
 }
 
 
@@ -223,7 +224,59 @@ function git_dirt {
     fi;
 }
 
+# |
+# | Git unpushed
+# |:::::::::::::::::::::::::::::::::::::::::::::::::|
 
+
+function git_icons_stats {
+    git rev-parse --git-dir > /dev/null 2>&1
+    if [ $? -eq 0 ]; then
+        git_status="$(git status 2> /dev/null)"
+        branch_pattern="^# On branch ([^${IFS}]*)"
+        detached_branch_pattern="# Not currently on any branch"
+        remote_pattern="# Your branch is (.*) of"
+        diverge_pattern="# Your branch and (.*) have diverged"
+        untracked_pattern="# Untracked files:"
+        new_pattern="new file:"
+        deleted_pattern="deleted:"
+        modife_pattern="modified:"
+
+        # add an else if or two here if you want to get more specific
+        # show if we're ahead or behind HEAD
+        if [[ ${git_status} =~ ${remote_pattern} ]]; then
+            if [[ ${BASH_REMATCH[1]} == "ahead" ]]; then
+                posti="↑"
+            else
+                posti="↓"
+            fi
+        fi
+        #new files
+        if [[ ${git_status} =~ ${new_pattern} ]]; then
+            newf="●"
+        fi
+        #deleted files
+        if [[ ${git_status} =~ ${deleted_pattern} ]]; then
+            delf="○"
+        fi
+        #modified files
+        if [[ ${git_status} =~ ${modife_pattern} ]]; then
+            modif="◑"
+        fi
+        #untracked files
+        if [[ ${git_status} =~ ${untracked_pattern} ]]; then
+            untra="□"
+        fi
+        #diverged branch
+        if [[ ${git_status} =~ ${diverge_pattern} ]]; then
+            remote="↕"
+        fi
+
+        echo -e "${untra} ${modif} ${newf} ${delf} ${posti} ${remote}"
+
+    fi
+    return
+}
 
 # |
 # | GIT remotes
@@ -233,6 +286,8 @@ function remote_git_branch { #returns the current branch; inline usage ex: git p
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* (.*)/1/'
 #git describe -contains -all HEAD
 }
+
+
 alias @branch=remote_git_branch # usage ex: git pull origin `@branch`
 alias @br=@branch # usage ex: git pull origin `@br`
 
@@ -366,12 +421,12 @@ fi
 
 # | |||||||||||||||||||||
 
-if [ `/usr/bin/whoami` = 'turri' ]; then # you are root, set red colour prompt
+if [ `/usr/bin/whoami` = 'o' ]; then # you are root, set red colour prompt
 
 PS1="
- ${iblue}☆${rs} ${blue}[\h] - [\u]  ${bred}\$(git_branch) \$(show_git_add) \$(git_dirt) ${ired}\$(remote_git)${rs}
- ${iblue}☆${rs} ${iblue} \w ${rs}
- ${iblue}☆${rs} ${bwhite}$ ${rs}"
+ ${iblue}☆${rs} ${blue}[\u]  ${ired}[\$(git_branch)] \$(show_git_add) \$(git_dirt) \$(git_icons_stats) ${ired}\$(remote_git) ${rs}
+ ${iblue} ${rs} ${iblue} \w ${rs}
+ ${iblue} ${rs} ${bwhite}$ ${rs}"
 
 fi
 
@@ -403,53 +458,53 @@ alias ll='ls -gXa --color=auto'
 alias cc='clear'
 alias ..='cd ..'
 
-alias all--ip='ip addr list |grep eth0$'
+alias oo-ip='ip addr list |grep eth0$'
 
-alias all--ram-free="echo '     echo 3 > /proc/sys/vm/drop_caches'"
+alias oo-ram-free="echo '     echo 3 > /proc/sys/vm/drop_caches'"
 
-alias all--untar_file="tar -xzvf $1"
+alias oo-untar_file="tar -xzvf $1"
 
-alias all--users="cat /etc/passwd | grep /home | cut -d: -f1"
+alias oo-users="cat /etc/passwd | grep /home | cut -d: -f1"
 
-alias all--vm="cat ~/.ssh/config"
+alias oo-vm="cat ~/.ssh/config"
 
 # untar on the same folder
-all--untar-here_file() {
+oo-untar-here_file() {
     tar --strip-components=1 -zxvf "$1"
 }
 
 #wget limit
-all--wget_limit_url() {
+oo-wget_limit_url() {
     wget --limit-rate="$1"k "$2"
 }
 
-all--mkdir_cd() {
+oo-mkdir_cd() {
     mkdir "$1" && cd "$1"
 }
 
-all--ssh-keygen_comm() {
+oo-ssh-keygen_comm() {
     ssh-keygen -t rsa -b 2048 -f ~/.ssh/"$1" -C "$1"
 }
 
 # alias apt-get
-alias all--install='apt-get install'
-alias all--update='apt-get update'
-alias all--upgrade='apt-get upgrade'
+alias oo-install='apt-get install'
+alias oo-update='apt-get update'
+alias oo-upgrade='apt-get upgrade'
 
 # alias Apache, MySql
-alias all--apache-restart='/etc/init.d/apache2 restart'
-alias all--apache-stop='/etc/init.d/apache2 stop'
-alias all--apache-start='/etc/init.d/apache2 start'
+alias oo-apache-restart='/etc/init.d/apache2 restart'
+alias oo-apache-stop='/etc/init.d/apache2 stop'
+alias oo-apache-start='/etc/init.d/apache2 start'
 
-alias all--apache-vhost='apache2ctl -S'
+alias oo-apache-vhost='apache2ctl -S'
 
-alias all--mysql-start='/etc/init.d/mysql start'
-alias all--mysql-stop='/etc/init.d/mysql stop'
-alias all--mysql-restart='/etc/init.d/mysql restart'
+alias oo-mysql-start='/etc/init.d/mysql start'
+alias oo-mysql-stop='/etc/init.d/mysql stop'
+alias oo-mysql-restart='/etc/init.d/mysql restart'
 
-#alias all--nginx-start ='/etc/init.d/nginx start'
-#alias all--nginx-stop ='/etc/init.d/nginx stop'
-#alias all--nginx-restart ='/etc/init.d/nginx restart'
+#alias oo-nginx-start ='/etc/init.d/nginx start'
+#alias oo-nginx-stop ='/etc/init.d/nginx stop'
+#alias oo-nginx-restart ='/etc/init.d/nginx restart'
 
 
 
@@ -457,37 +512,45 @@ alias all--mysql-restart='/etc/init.d/mysql restart'
 # | Alias Git
 # |:::::::::::::::::::::::::::::::::::::::::::::::::|
 
-all--git () {
+oo-git () {
     echo ""
     echo "gitck         = git checkout [BRANCH]"
     echo "gits          = git status"
     echo "gitb          = git branch [NEW BRANCH]"
+    echo "gitbv         = git branch -v"
     echo "gitc          = git commit -m [COMMENT]"
     echo "gitl          = git log --graph --pretty=oneline --abbrev-commit"
-    echo "gitcl         = git clone [URL] ."
+    echo "gitll         = git log --pretty=oneline --abbrev=9 -5"
     echo "gitlog        = git log --pretty=oneline --abbrev-commit"
+    echo "gitcl         = git clone [URL] ."
     echo "gita          = git add ."
-    echo "gitunpush     = git log origin/master..HEAD --simplify-by-decoration --decorate --oneline"
+    echo "gitunpush     = git log origin/master..HEAD --oneline"
+    echo "gitlme        = git log --merges --oneline -20"
+    echo "gitlstat      = git log --pretty=format:'%h - %ar - %an,  : %s' -30"
 }
 
 alias gitck="git checkout $1"
 alias gits="git status"
 alias gitb="git branch $1"
+alias gitbv="git branch -v"
 alias gitc="git commit -m $1"
 alias gitl="git log --graph --pretty=oneline --abbrev-commit --abbrev=9"
+alias gitll="git log --pretty=oneline --abbrev=9 -5"
 alias gitlog="git log --pretty=oneline --abbrev-commit --abbrev=9 $1"
 alias gitcl="git clone $1 ."
 alias gita="git add ."
-alias gitunpush="git log origin/master..HEAD --simplify-by-decoration --decorate --oneline"
+alias gitunpush="git log origin/master..HEAD --oneline"
+alias gitlme="git log --merges --oneline -20"
+alias gitlstat="git log --pretty=format:'%h - %ar - %an,  : %s' -30"
 
 # |
 # | Alias Drush
 # |:::::::::::::::::::::::::::::::::::::::::::::::::|
 
-alias all--drush-update="drush pm-update -y"
-alias all--drush-update-db="drush updatedb -y"
+alias oo-drush-update="drush pm-update -y"
+alias oo-drush-update-db="drush updatedb -y"
 
-all--drush-drupal() {
+oo-drush-drupal() {
     drush dl drupal
     mv drupal-*/* .
     mv drupal-*/.htaccess .
@@ -500,7 +563,7 @@ all--drush-drupal() {
     drush status
 }
 
-all--drush-drupal_dir() {
+oo-drush-drupal_dir() {
     mkdir "$1"
     cd "$1"
     drush dl drupal
@@ -515,13 +578,13 @@ all--drush-drupal_dir() {
     drush status
 }
 
-all--drush-themes() {
+oo-drush-themes() {
     drush dl rubik
     drush dl tao
     drush dl zen
 }
 
-all--drush-modules-min() {
+oo-drush-modules-min() {
     drush dl admin_menu -y
     drush dl module_filter -y
     drush dl backup_migrate -y
@@ -534,14 +597,14 @@ all--drush-modules-min() {
 
 }
 
-all--drush-modules-backup() {
+oo-drush-modules-backup() {
     drush dl backup_migrate -y
     drush en backup_migrate -y
 
     drush cron
 }
 
-all--drush-modules-basics() {
+oo-drush-modules-basics() {
     drush dl block_class -y
     drush dl backup_migrate -y
     drush dl ctools -y
@@ -605,7 +668,7 @@ all--drush-modules-basics() {
     drush cron
 }
 
-all--info-machine () {
+oo-info-machine () {
 
 let upSeconds="$(/usr/bin/cut -d. -f1 /proc/uptime)"
 let secs=$((${upSeconds}%60))
@@ -654,7 +717,7 @@ $(tput sgr0)"
 # | Print all colors in console
 # |:::::::::::::::::::::::::::::::::::::::::::::::::|
 
-all--colors () {
+oo-colors () {
 
     echo "# Reset color"
     echo -e "\e[0m ***** AaBbCs *** \[\\\e[0m\] *** \\\e[0m \\e[0m ---> rs"
@@ -801,3 +864,4 @@ all--colors () {
 
 
 }
+
