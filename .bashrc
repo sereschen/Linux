@@ -279,9 +279,11 @@ function git_icons_stats {
 
         curr_merge_branch=$(git config branch.$curr_branch.merge | cut -d / -f 3);
 
-        v_count=$(git rev-list --left-right --count $curr_branch...$curr_remote/$curr_merge_branch | tr -s '\t' '|');
+        if [[ "$curr_remote" != "" ]]; then
+            v_count=$(git rev-list --left-right --count $curr_branch...$curr_remote/$curr_merge_branch | tr -s '\t' '|');
+        fi
 
-        if [[ "$v_count" != "0|0" ]]; then
+        if [[ "$v_count" != "0|0"   ]]; then
             echo -e "${untra} ${modif} ${newf} ${delf} ${v_ahead}${v_count}${v_behine} ${remote} "
         else
             echo -e "${untra} ${modif} ${newf} ${delf} ${remote} "
