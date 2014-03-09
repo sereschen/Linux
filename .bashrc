@@ -178,7 +178,7 @@ on_iwhite="\[\e[0;107m\]"
 
 
 function git_branch {
-   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
+   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/[\1]/'
    # echo $(git symbolic-ref HEAD 2>/dev/null | awk -F/ {'print $NF'})
 }
 
@@ -246,9 +246,9 @@ function git_icons_stats {
         # show if we're ahead or behind HEAD
         if [[ ${git_status} =~ ${remote_pattern} ]]; then
             if [[ ${BASH_REMATCH[1]} == "ahead" ]]; then
-                posti="↑"
+                v_ahead="↑"
             else
-                posti="↓"
+                v_behine="↓"
             fi
         fi
         #new files
@@ -272,7 +272,21 @@ function git_icons_stats {
             remote="↕"
         fi
 
-        echo -e "${untra} ${modif} ${newf} ${delf} ${posti} ${remote}"
+        # Count ahead and behine
+        curr_branch=$(git rev-parse --abbrev-ref HEAD);
+
+        curr_remote=$(git config branch.$curr_branch.remote);
+
+        curr_merge_branch=$(git config branch.$curr_branch.merge | cut -d / -f 3);
+
+        v_count=$(git rev-list --left-right --count $curr_branch...$curr_remote/$curr_merge_branch | tr -s '\t' '|');
+
+        if [[ "$v_count" != "0|0" ]]; then
+            echo -e "${untra} ${modif} ${newf} ${delf} ${v_ahead}${v_count}${v_behine} ${remote} "
+        else
+            echo -e "${untra} ${modif} ${newf} ${delf} ${remote} "
+        fi
+
 
     fi
     return
@@ -329,6 +343,7 @@ function remote_git { # This prints the matching remotes for the current branch 
 
 
 
+
 # |
 # | Vagrant Box Url
 # |:::::::::::::::::::::::::::::::::::::::::::::::::|
@@ -361,7 +376,7 @@ if [ "${machine}" = yellow ]; then
 PS1="
  ${rs}${on_iblack}     ::::::: ${title_machine} ::::::::${rs}
 
- ${iyellow}☆${rs} ${yellow}[\h] - [\u]  ${bred}\$(git_branch) \$(show_git_add) \$(git_dirt) ${ired}\$(remote_git)${rs}
+ ${iyellow}☆${rs} ${yellow}[\u]  ${ired} \$(git_branch) \$(show_git_add) \$(git_dirt) \$(git_icons_stats) ${ired}\$(remote_git) ${rs}
  ${iyellow}☆${rs} ${iyellow} \w ${rs}
  ${iyellow}☆${rs} ${bwhite}$ ${rs}"
 
@@ -374,7 +389,7 @@ if [ "${machine}" = green ]; then
 PS1="
  ${rs}${on_iblack}     ::::::: ${title_machine} ::::::::${rs}
 
- ${igreen}☆${rs} ${green}[\h] - [\u]  ${bred}\$(git_branch) \$(show_git_add) \$(git_dirt) ${ired}\$(remote_git)${rs}
+ ${igreen}☆${rs} ${green}[\u]  ${ired} \$(git_branch) \$(show_git_add) \$(git_dirt) \$(git_icons_stats) ${ired}\$(remote_git) ${rs}
  ${igreen}☆${rs} ${igreen} \w ${rs}
  ${igreen}☆${rs} ${bwhite}$ ${rs}"
 
@@ -387,7 +402,7 @@ if [ "${machine}" = purple ]; then
 PS1="
  ${rs}${on_iblack}     ::::::: ${title_machine} ::::::::${rs}
 
- ${ipurple}☆${rs} ${purple}[\h] - [\u]  ${bred}\$(git_branch) \$(show_git_add) \$(git_dirt) ${ired}\$(remote_git)${rs}
+ ${ipurple}☆${rs} ${purple}[\u]  ${ired} \$(git_branch) \$(show_git_add) \$(git_dirt) \$(git_icons_stats) ${ired}\$(remote_git) ${rs}
  ${ipurple}☆${rs} ${ipurple} \w ${rs}
  ${ipurple}☆${rs} ${bwhite}$ ${rs}"
 
@@ -400,7 +415,7 @@ if [ "${machine}" = cyan ]; then
 PS1="
  ${rs}${on_iblack}     ::::::: ${title_machine} ::::::::${rs}
 
- ${icyan}☆${rs} ${cyan}[\h] - [\u]  ${bred}\$(git_branch) \$(show_git_add) \$(git_dirt) ${ired}\$(remote_git)${rs}
+ ${icyan}☆${rs} ${cyan}[\u]  ${ired} \$(git_branch) \$(show_git_add) \$(git_dirt) \$(git_icons_stats) ${ired}\$(remote_git) ${rs}
  ${icyan}☆${rs} ${icyan} \w ${rs}
  ${icyan}☆${rs} ${bwhite}$ ${rs}"
 
@@ -413,7 +428,7 @@ if [ "${machine}" = red ]; then
 PS1="
  ${rs}${on_iblack}     ::::::: ${title_machine} ::::::::${rs}
 
- ${ired}☆${rs} ${red}[\h] - [\u]  ${bred}\$(git_branch) \$(show_git_add) \$(git_dirt) ${ired}\$(remote_git)${rs}
+ ${ired}☆${rs} ${red}[\u]  ${ired} \$(git_branch) \$(show_git_add) \$(git_dirt) \$(git_icons_stats) ${ired}\$(remote_git) ${rs}
  ${ired}☆${rs} ${ired} \w ${rs}
  ${ired}☆${rs} ${bwhite}$ ${rs}"
 
@@ -424,7 +439,7 @@ fi
 if [ `/usr/bin/whoami` = 'o' ]; then # you are root, set red colour prompt
 
 PS1="
- ${iblue}☆${rs} ${blue}[\u]  ${ired}[\$(git_branch)] \$(show_git_add) \$(git_dirt) \$(git_icons_stats) ${ired}\$(remote_git) ${rs}
+ ${iblue}☆${rs} ${blue}[\u]  ${ired} \$(git_branch) \$(show_git_add) \$(git_dirt) \$(git_icons_stats) ${ired}\$(remote_git) ${rs}
  ${iblue} ${rs} ${iblue} \w ${rs}
  ${iblue} ${rs} ${bwhite}$ ${rs}"
 
@@ -514,34 +529,45 @@ alias oo-mysql-restart='/etc/init.d/mysql restart'
 
 oo-git () {
     echo ""
-    echo "gitck         = git checkout [BRANCH]"
-    echo "gits          = git status"
-    echo "gitb          = git branch [NEW BRANCH]"
-    echo "gitbv         = git branch -v"
-    echo "gitc          = git commit -m [COMMENT]"
-    echo "gitl          = git log --graph --pretty=oneline --abbrev-commit"
-    echo "gitll         = git log --pretty=oneline --abbrev=9 -5"
-    echo "gitlog        = git log --pretty=oneline --abbrev-commit"
-    echo "gitcl         = git clone [URL] ."
-    echo "gita          = git add ."
-    echo "gitunpush     = git log origin/master..HEAD --oneline"
-    echo "gitlme        = git log --merges --oneline -20"
-    echo "gitlstat      = git log --pretty=format:'%h - %ar - %an,  : %s' -30"
+    echo "git--ck              = git checkout [BRANCH]"
+    echo "git--s               = git status"
+    echo "git--b               = git branch [NEW BRANCH]"
+    echo "git--bv              = git branch -v"
+    echo "git--c               = git commit -m [COMMENT]"
+    echo "git--l               = git log --graph --pretty=oneline --abbrev-commit"
+    echo "git--ll              = git log --pretty=oneline --abbrev=9 -5"
+    echo "git--log             = git log --pretty=oneline --abbrev-commit"
+    echo "git---log-cant-user  = git shortlog -s -n"
+    echo "git--cl              = git clone [URL] ."
+    echo "git--a               = git add ."
+    echo "git--unpush          = git log origin/master..HEAD --oneline"
+    echo "git--unpull          = git log HEAD..origin/master --oneline"
+    echo "git--lme             = git log --merges --oneline -20"
+    echo "git--lstat           = git log --pretty=format:'%h - %ar - %an,  : %s' -30"
+    echo "git--count-b-ups     = git log HEAD..upstream/master --oneline | wc -l "
 }
 
-alias gitck="git checkout $1"
-alias gits="git status"
-alias gitb="git branch $1"
-alias gitbv="git branch -v"
-alias gitc="git commit -m $1"
-alias gitl="git log --graph --pretty=oneline --abbrev-commit --abbrev=9"
-alias gitll="git log --pretty=oneline --abbrev=9 -5"
-alias gitlog="git log --pretty=oneline --abbrev-commit --abbrev=9 $1"
-alias gitcl="git clone $1 ."
-alias gita="git add ."
-alias gitunpush="git log origin/master..HEAD --oneline"
-alias gitlme="git log --merges --oneline -20"
-alias gitlstat="git log --pretty=format:'%h - %ar - %an,  : %s' -30"
+alias git--ck="git checkout $1"
+alias git--s="git status"
+alias git--b="git branch $1"
+alias git--bv="git branch -v"
+alias git--c="git commit -m $1"
+alias git--l="git log --graph --pretty=oneline --abbrev-commit --abbrev=9"
+alias git--ll="git log --pretty=oneline --abbrev=9 -5"
+alias git--log="git log --pretty=oneline --abbrev-commit --abbrev=9 $1"
+alias git--log-cant-user="git shortlog -s -n"
+alias git--cl="git clone $1 ."
+alias git--a="git add ."
+alias git--unpush="git log origin/master..HEAD --oneline"
+alias git--unpull="git log HEAD..origin/master --oneline"
+alias git--unpull-upstream="git log HEAD..upstream/master --oneline"
+alias git--lme="git log --merges --oneline -20"
+alias git--lstat="git log --pretty=format:'%Cred%h%Creset - %Cgreen%ar %Creset- %an,  : %s %C(yellow)%d' -30"
+alias git--count-b-ups="echo -e ' Behine upstream \e[0;31m' && git log HEAD..upstream/master --oneline | wc -l && echo -e '\e[0m Commits'"
+
+ # git log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --
+ # git log HEAD..upstream/master --oneline | wc -l
+
 
 # |
 # | Alias Drush
