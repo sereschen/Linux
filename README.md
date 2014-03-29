@@ -18,6 +18,7 @@
 - gpick
 - imagemagic
 - springseed
+- Alsamixer
 
 
 ##### dev
