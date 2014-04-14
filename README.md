@@ -123,6 +123,17 @@ _ _ _
 	sudo chown -R $USER:$USER vagrant/
 ```
 
+### Open ports
+
+#### Centos
+
+```bash
+	vim /etc/sysconfig/iptables
+	
+	-A INPUT -m state --state NEW -m tcp -p tcp --dport 3000 -j ACCEPT
+	
+	$ /sbin/service iptables restart
+```
 
 - - -
 
