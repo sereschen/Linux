@@ -25,7 +25,7 @@
 - meld
 - pac
 - pidgin
-- qshoutdown
+- qshutdown
 - Samba
 - shutter
 - springseed
