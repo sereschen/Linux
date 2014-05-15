@@ -4,7 +4,7 @@
 
 ```bash
 	$ cd /lib/x86_64-linux-gnu/
-    $ sudo ln -s libudev.so.1 libudev.so.0
+  $ sudo ln -s libudev.so.1 libudev.so.0
 ```
 
 
@@ -33,6 +33,33 @@
 - timeshift
 - wine
 
+- ** wkhtmltopdf **
+
+``` bash 
+    # Convert html to pdf 
+    $ sudo apt-get install wkhtmltopdf -y
+
+    Ex:
+    $ wkhtmltopdf http://google.com google.pdf
+```
+
+- ** pandoc **
+
+``` bash
+    # Universal document converter
+    $ sudo apt-get install pandoc -y
+
+    # Requerments
+    $ sudo apt-get install texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
+
+
+
+    Ex:
+    $ pandoc -f markdown -t html README.md >> README.html
+    $ pandoc latex.md -o latex.pdf
+
+```
+ 
 
 ** dev **
 
@@ -73,7 +100,7 @@
     $ sudo apt-add-repository ppa:ricotz/docky
     $ sudo apt-get update
     $ sudo apt-get install pantheon-shell pantheon midori lingot wingpanel plank pantheon-terminal pantheon-xsession-settings contractor slingshot-launcher scratch marlin elementary-theme elementary-icon-theme ttf-droid footnote switchboard plank-theme-pantheon snap preload
-``` 
+```
 
 ## Themes and Icons
 
@@ -154,7 +181,7 @@
 ** Permisos **
 
 ```bash
-    $ sudo chmod -R 755 folder/ 
+    $ sudo chmod -R 755 folder/
 ```
 
 ** Owner **
@@ -225,7 +252,7 @@
 ## SSH
 
     $ ssh-keygen -t rsa -b 4096
-    
+
     $ ssh-keygen -t dsa
 
     $ ssh-keygen -t rsa
@@ -284,7 +311,7 @@
 - Syntax of crontab
 
 ```bash
-    1 2 3 4 5 /path/to/command arg1 arg2    
+    1 2 3 4 5 /path/to/command arg1 arg2
 
     # or
 
@@ -346,8 +373,8 @@
     !
     keysym comma = comma semicolon less less less
     keysym period = period colon greater greater greater
-    
-    
+
+
     !
     ! Add <> to zx
     ! ORIGINAL
@@ -362,7 +389,7 @@
 - Ejecutar
 
 ```bash
-    xmodmap -verbose ~/.xmodmap 
+    xmodmap -verbose ~/.xmodmap
 ```
 
 ## Otros comados utiles
@@ -373,7 +400,7 @@
     $ xmodmap -pke | less
 ```
 
-- Ver las lista de dispositivos 
+- Ver las lista de dispositivos
 
 ```bash
     $ xinput list
@@ -431,13 +458,10 @@
      UUID=3ABC75AEBC756573 /home/o/Media/Disk-2  ntfs-3g defaults,rw,users,auto,uid=0000,gid=1000,fmask=000,dmask=000,umask=000 0 0000
 ```
 
-## Descomprimir a traves de php 
+## Descomprimir a traves de php
 
 ```php
     <?php
         exec('tar -xzf SecretariaSalud.tar.gz',$ret);
     ?>
 ```
-
-
-
