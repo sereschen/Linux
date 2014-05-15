@@ -65,8 +65,20 @@
 
 - python-software-properties
 - software-properties-common
-- npm
 - yum
+
+** npm **
+
+```bash
+    $ sudo apt-get -y install npm
+```
+
+** Less **
+
+```bash
+    $ sudo npm install less -g
+    $ sudo ln -s /usr/bin/nodejs /usr/bin/node
+```
 
 ** timeshift **
 
