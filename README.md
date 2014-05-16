@@ -4,7 +4,7 @@
 
 ```bash
 	$ cd /lib/x86_64-linux-gnu/
-  $ sudo ln -s libudev.so.1 libudev.so.0
+    $ sudo ln -s libudev.so.1 libudev.so.0
 ```
 
 
@@ -33,7 +33,14 @@
 - timeshift
 - wine
 
-- ** wkhtmltopdf **
+-**Gufw**
+
+```bash
+    # Firewall
+    $ sudo apt-get install gufw
+```
+
+-**wkhtmltopdf**
 
 ``` bash 
     # Convert html to pdf 
@@ -43,7 +50,7 @@
     $ wkhtmltopdf http://google.com google.pdf
 ```
 
-- ** pandoc **
+-**pandoc**
 
 ``` bash
     # Universal document converter
@@ -52,8 +59,6 @@
     # Requerments
     $ sudo apt-get install texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
 
-
-
     Ex:
     $ pandoc -f markdown -t html README.md >> README.html
     $ pandoc latex.md -o latex.pdf
@@ -61,26 +66,26 @@
 ```
  
 
-** dev **
+-**dev**
 
 - python-software-properties
 - software-properties-common
 - yum
 
-** npm **
+-**npm**
 
 ```bash
     $ sudo apt-get -y install npm
 ```
 
-** Less **
+-**Less**
 
 ```bash
     $ sudo npm install less -g
     $ sudo ln -s /usr/bin/nodejs /usr/bin/node
 ```
 
-** timeshift **
+-**timeshift**
 
 ``` bash
     $ sudo apt-add-repository -y ppa:teejee2008/ppa
@@ -88,7 +93,7 @@
     $ sudo apt-get install timeshift
 ```
 
-** Nitro Task **
+-**Nitro Task**
 
 ``` bash
     $ sudo add-apt-repository ppa:cooperjona/nitrotasks
@@ -96,7 +101,7 @@
     $ sudo apt-get install nitrotasks
 ```
 
-** Nodejs **
+-**Nodejs**
 
 ``` bash
     $ sudo add-apt-repository -y ppa:chris-lea/node.js
@@ -104,7 +109,7 @@
     $ sudo apt-get install nodejs
 ```
 
-** Install Pantheon Desktop Environment **
+-**Install Pantheon Desktop Environment**
 
 ``` bash
     $ sudo apt-add-repository ppa:elementary-os/daily
@@ -116,7 +121,7 @@
 
 ## Themes and Icons
 
-** iOS 7 **
+-**iOS 7**
 
 ``` bash
     $ sudo add-apt-repository ppa:noobslab/icons
@@ -124,7 +129,7 @@
     $ sudo apt-get install ieos7-icons
 ```
 
-** Faience **
+-**Faience**
 
 ``` bash
     http://tiheum.deviantart.com/art/Faience-icon-theme-255099649
@@ -134,7 +139,7 @@
    $ sudo apt-get install faience-theme faience-icon-theme
 ```
 
-** Compass Icons **
+-**Compass Icons**
 
 ``` bash
    $ sudo ppa:noobslab/nitrux-os
@@ -142,7 +147,7 @@
    $ sudo apt-get install compass-icons
 ```
 
-** Pacifica Icons **
+-**Pacifica Icons**
 
 ``` bash
    $ sudo add-apt-repository ppa:fsvh/pacifica-icon-theme
@@ -150,7 +155,7 @@
    $ sudo apt-get install pacifica-icon-theme
 ```
 
-** Nitrux Icons **
+-**Nitrux Icons**
 
 ``` bash
    $ sudo add-apt-repository ppa:upubuntu-com/nitrux
@@ -158,7 +163,7 @@
    $ sudo apt-get install nitruxos
 ```
 
-** Faience **
+-**Faience**
 
 ``` bash
     >>>    /usr/share/icons
@@ -172,69 +177,69 @@
 
 ##    Comandos Basicos
 
-** Add Usuario **
+-**Add Usuario**
 
 ```bash
     $ sudo adduser [newuser]
 ```
 
-** Delete User **
+-**Delete User**
 
 ```bash
     $ sudo userdel [newuser]
 ```
 
-** Add User to Group **
+-**Add User to Group**
 
 ```bash
     $ sudo adduser [user] [group]
 ```
 
-** Permisos **
+-**Permisos**
 
 ```bash
     $ sudo chmod -R 755 folder/
 ```
 
-** Owner **
+-**Owner**
 ```bash
     $ sudo chown -R $USER:$USER vagrant/
 ```
 
 ## Otros Comandos
 
-** Show users - home **
+-**Show users - home**
 
 ```bash
     $ cat /etc/passwd |grep "/home" |cut -d: -f1
 ```
 
-** Show users all and uid **
+-**Show users all and uid**
 
 ```bash
     $ awk -F":" '{ print "User: " $1 "\t\tuid:" $3 }' /etc/passwd
 ```
 
-** Show users all **
+-**Show users all**
 
 ```bash
     % cat /etc/passwd | cut -d ":" -f1
 ```
 
 
-** Find Dupicate files **
+-**Find Dupicate files**
 
 ```bash
     find -not -empty -type f -printf "%s\n" | sort -rn | uniq -d | xargs -I{} -n1 find -type f -size {}c -print0 | xargs -0 md5sum | sort | uniq -w32 --all-repeated=separate
 ```
 
-** Find Dupicate files **
+-**Find Dupicate files**
 
 ```bash
     fdupes -r .
 ```
 
-** wget **
+-**wget**
 
 ```bash
     $ wget -r -l1 --no-parent -nH -nd -P/tmp -A".gif,.jpg,.png" http://example.com/images
@@ -242,14 +247,14 @@
 
 ## Ver Paquetes instalados
 
-** Todos los paquetes instaldados **
+-**Todos los paquetes instaldados**
 
     $ dpkg --get-selections >> paquetes-instalados.txt
 
 
 ## Open ports
 
-** Centos **
+-**Centos**
 
 ```bash
     $ vim /etc/sysconfig/iptables
@@ -345,7 +350,7 @@
     ------------- Minute (0 - 59)
 ```
 
-** Cron examples **
+**Cron examples**
 
 ```bash
     # Pull and log
@@ -446,13 +451,13 @@
 ```
 
 
-** Descargar MountManager **
+**Descargar MountManager**
 
 ```bash
     http://ubuntuforums.org/showthread.php?t=1604251
 ```
 
-** Edit fstab **
+**Edit fstab**
 ```bash
     $ sudo sublime /etc/fstab
 
