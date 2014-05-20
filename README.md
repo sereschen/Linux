@@ -5,11 +5,27 @@
 ```bash
 	$ cd /lib/x86_64-linux-gnu/
     $ sudo ln -s libudev.so.1 libudev.so.0
+
+    $sudo ln -sf /lib/x86_64-linux-gnu/libudev.so.1 /lib/x86_64-linux-gnu/libudev.so.0
 ```
 
+2. Progress bar 
+
+```bash
+    $ echo 'Dpkg:Progress-Fancy "1";' | sudo tee /etc/apt/apt.conf.d/99progressbar
+```
+
+3. Extras
+
+```bash
+    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y python-software-properties
+    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y  software-properties-common
+    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y python
+    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y g++ 
+    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y make
+```
 
 ## Programas Necesarios
-
 
 - Alsamixer
 - Angry IP Scanner -  http://angryip.org/
@@ -33,24 +49,56 @@
 - timeshift
 - wine
 
--**Gufw**
+- **Git**
+
+```bash
+    $ sudo add-apt-repository ppa:git-core/ppa -y && apt-get update &&  apt-get -o Dpkg::Progress-Fancy=true install git -y
+```
+
+- **Git Extras**
+
+```bash
+    # https://github.com/visionmedia/git-extras
+    (cd /tmp && git clone --depth 1 https://github.com/visionmedia/git-extras.git && cd git-extras && sudo make install)
+```
+
+- **Nodejs**
+
+``` bash
+    $ sudo add-apt-repository ppa:chris-lea/node.js -y  && apt update && apt-get install -o Dpkg::Progress-Fancy=true -y  nodejs
+```
+
+- **Less**
+
+```bash
+    $ sudo npm install less -g
+    $ sudo ln -s /usr/bin/nodejs /usr/bin/node
+```
+
+- **Gufw**
 
 ```bash
     # Firewall
-    $ sudo apt-get install gufw
+    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y  gufw
 ```
 
--**wkhtmltopdf**
+- **Viewnior**
+
+```bash
+    https://launchpad.net/~gilir/+archive/lubuntu/+files/viewnior_1.3.0-0ubuntu1%7Eppa1_amd64.deb
+```
+
+- **wkhtmltopdf**
 
 ``` bash 
     # Convert html to pdf 
-    $ sudo apt-get install wkhtmltopdf -y
+    $ sudo apt install wkhtmltopdf -y
 
     Ex:
     $ wkhtmltopdf http://google.com google.pdf
 ```
 
--**pandoc**
+- **pandoc**
 
 ``` bash
     # Universal document converter
@@ -64,28 +112,9 @@
     $ pandoc latex.md -o latex.pdf
 
 ```
- 
 
--**dev**
 
-- python-software-properties
-- software-properties-common
-- yum
-
--**npm**
-
-```bash
-    $ sudo apt-get -y install npm
-```
-
--**Less**
-
-```bash
-    $ sudo npm install less -g
-    $ sudo ln -s /usr/bin/nodejs /usr/bin/node
-```
-
--**timeshift**
+- **timeshift**
 
 ``` bash
     $ sudo apt-add-repository -y ppa:teejee2008/ppa
@@ -93,7 +122,7 @@
     $ sudo apt-get install timeshift
 ```
 
--**Nitro Task**
+- **Nitro Task**
 
 ``` bash
     $ sudo add-apt-repository ppa:cooperjona/nitrotasks
@@ -101,15 +130,8 @@
     $ sudo apt-get install nitrotasks
 ```
 
--**Nodejs**
 
-``` bash
-    $ sudo add-apt-repository -y ppa:chris-lea/node.js
-    $ sudo apt-get update
-    $ sudo apt-get install nodejs
-```
-
--**Install Pantheon Desktop Environment**
+- **Install Pantheon Desktop Environment**
 
 ``` bash
     $ sudo apt-add-repository ppa:elementary-os/daily
@@ -121,7 +143,7 @@
 
 ## Themes and Icons
 
--**iOS 7**
+- **iOS 7**
 
 ``` bash
     $ sudo add-apt-repository ppa:noobslab/icons
@@ -129,7 +151,7 @@
     $ sudo apt-get install ieos7-icons
 ```
 
--**Faience**
+- **Faience**
 
 ``` bash
     http://tiheum.deviantart.com/art/Faience-icon-theme-255099649
@@ -139,7 +161,7 @@
    $ sudo apt-get install faience-theme faience-icon-theme
 ```
 
--**Compass Icons**
+- **Compass Icons**
 
 ``` bash
    $ sudo ppa:noobslab/nitrux-os
@@ -147,7 +169,7 @@
    $ sudo apt-get install compass-icons
 ```
 
--**Pacifica Icons**
+- **Pacifica Icons**
 
 ``` bash
    $ sudo add-apt-repository ppa:fsvh/pacifica-icon-theme
@@ -155,7 +177,7 @@
    $ sudo apt-get install pacifica-icon-theme
 ```
 
--**Nitrux Icons**
+- **Nitrux Icons**
 
 ``` bash
    $ sudo add-apt-repository ppa:upubuntu-com/nitrux
@@ -163,7 +185,7 @@
    $ sudo apt-get install nitruxos
 ```
 
--**Faience**
+- **Faience**
 
 ``` bash
     >>>    /usr/share/icons
@@ -177,69 +199,71 @@
 
 ##    Comandos Basicos
 
--**Add Usuario**
+- **Add Usuario**
 
 ```bash
     $ sudo adduser [newuser]
 ```
 
--**Delete User**
+- **Delete User**
 
 ```bash
     $ sudo userdel [newuser]
 ```
 
--**Add User to Group**
+- **Add User to Group**
 
 ```bash
     $ sudo adduser [user] [group]
 ```
 
--**Permisos**
+- **Permisos**
 
 ```bash
     $ sudo chmod -R 755 folder/
 ```
 
--**Owner**
+- **Owner**
+- 
 ```bash
     $ sudo chown -R $USER:$USER vagrant/
 ```
 
+
 ## Otros Comandos
 
--**Show users - home**
+- **Show users - home**
 
 ```bash
     $ cat /etc/passwd |grep "/home" |cut -d: -f1
 ```
 
--**Show users all and uid**
+- **Show users all and uid**
 
 ```bash
     $ awk -F":" '{ print "User: " $1 "\t\tuid:" $3 }' /etc/passwd
 ```
 
--**Show users all**
+- **Show users all**
 
 ```bash
     % cat /etc/passwd | cut -d ":" -f1
 ```
 
 
--**Find Dupicate files**
+- **Find Dupicate files**
 
 ```bash
     find -not -empty -type f -printf "%s\n" | sort -rn | uniq -d | xargs -I{} -n1 find -type f -size {}c -print0 | xargs -0 md5sum | sort | uniq -w32 --all-repeated=separate
 ```
 
--**Find Dupicate files**
+- **Find Dupicate files**
 
 ```bash
     fdupes -r .
 ```
 
--**wget**
+- **wget**
 
 ```bash
     $ wget -r -l1 --no-parent -nH -nd -P/tmp -A".gif,.jpg,.png" http://example.com/images
@@ -247,14 +271,14 @@
 
 ## Ver Paquetes instalados
 
--**Todos los paquetes instaldados**
+- **Todos los paquetes instaldados**
 
     $ dpkg --get-selections >> paquetes-instalados.txt
 
 
 ## Open ports
 
--**Centos**
+- **Centos**
 
 ```bash
     $ vim /etc/sysconfig/iptables
@@ -270,6 +294,8 @@
 
     $ ssh-keygen -t rsa -b 4096
 
+    $ ssh-keygen -t rsa -b 4096 -f  ~/.ssh/gitlab -C "www.gitlab.com"
+
     $ ssh-keygen -t dsa
 
     $ ssh-keygen -t rsa
@@ -282,7 +308,40 @@
 
     $ ssh-keygen -t dsa -f  /home/o/.ssh/gitlab -C "www.gitlab.com"
 
-## Upload Files SSH
+- **SSH Config File**
+
+```bash
+    Host *
+      ServerAliveInterval 240
+
+    # |::::::: Virtual Machine Centos - Owncloud - Web
+    Host vm26
+        HostName 192.168.77.26
+        Port 22
+        User root
+        IdentityFile ~/.ssh/turrisystem
+        Compression yes
+        CompressionLevel 9
+        # RemoteForward 52698 127.0.0.1:52698
+        # RemoteForward 52698 localhost:52698
+        IdentitiesOnly yes
+
+
+    ## Authentication
+    # ssh -p 22 -o PubkeyAuthentication=no root@192.168.0.13
+
+    ## Upload file
+    # scp SourceFile user@host:directory/TargetFile
+
+```
+
+- **Upload ssh key**
+
+```bash
+    # scp ~/.ssh/id_rsa.pub user@host:~/.ssh/authorized_keys
+```
+
+- **Upload Files SSH**
 
 ```bash
     $ scp FILE USER@SERVER:LOCATION
