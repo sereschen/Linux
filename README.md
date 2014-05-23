@@ -6,10 +6,10 @@
 	$ cd /lib/x86_64-linux-gnu/
     $ sudo ln -s libudev.so.1 libudev.so.0
 
-    $sudo ln -sf /lib/x86_64-linux-gnu/libudev.so.1 /lib/x86_64-linux-gnu/libudev.so.0
+    $ sudo ln -sf /lib/x86_64-linux-gnu/libudev.so.1 /lib/x86_64-linux-gnu/libudev.so.0
 ```
 
-2. Progress bar 
+2. Progress bar
 
 ```bash
     $ echo 'Dpkg:Progress-Fancy "1";' | sudo tee /etc/apt/apt.conf.d/99progressbar
@@ -19,11 +19,163 @@
 
 ```bash
     $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y python-software-properties
-    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y  software-properties-common
-    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y python
-    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y g++ 
-    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y make
+    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y software-properties-common
+    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y g++
+    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y build-essential
+    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y libssl-dev
+
+    $ USERME=`whoami` && sudo ln -s /media/$USERME/Tera/Apps/SublimeText3/sublime_text /usr/bin/sublime
 ```
+
+- **Git**
+
+```bash
+    $ sudo add-apt-repository ppa:git-core/ppa -y && sudo apt-get update &&  sudo apt-get -o Dpkg::Progress-Fancy=true install git -y
+```
+
+- **Git Extras**
+
+```bash
+    # https://github.com/visionmedia/git-extras
+    (cd /tmp && git clone --depth 1 https://github.com/visionmedia/git-extras.git && cd git-extras && sudo make install)
+```
+
+- **Nodejs**
+
+``` bash
+    $ sudo add-apt-repository ppa:chris-lea/node.js -y  && sudo apt-get update && sudo apt-get install -o Dpkg::Progress-Fancy=true -y  nodejs
+```
+
+- **NVM**
+
+```bash
+    $ curl https://raw.githubusercontent.com/creationix/nvm/v0.7.0/install.sh | sh
+    $ echo "source ~/.nvm/nvm.sh" >> ~/.zshrc
+    $ source ~/.nvm/nvm.sh && source ~/.nvm/nvm.sh
+
+    # User
+    # $ nvm install 0.10
+    # $ nvm install 0.11
+    # $ nvm use 0.10
+    # $ nvm ls
+```
+
+- **npm, yeoman, bower, grunt**
+
+*Config*
+
+```bash
+    $ sudo chown -R $USER:$USER ~/tmp/
+    $ sudo chown -R $USER:$USER ~/.npm
+    $ sudo chown -R $USER:$USER /usr/local/
+    $ sudo chown -R $USER:$USER /usr/local/lib/node_modules/
+
+    $ cd /usr/local/share/zsh && sudo chmod -R 755 ./site-functions && sudo chown -R root:root ./site-functions
+
+    $ cat <<-EOF >> ~/.zshrc
+# |
+# | Yeoman
+# | :::::::::::::::::::::::::::
+
+export NODE_PATH=/usr/lib/nodejs:/usr/lib/node:/usr/lib/node_modules:/usr/share/javascript:/usr/local/lib/node_modules:/home/u/npm/lib/node_modules
+EOF
+
+    $ source ~/.zshrc
+```
+
+-*Packages*
+
+```bash
+    # **Less**
+    $ npm install -g less
+
+    # **Yeoman**
+    $ npm install -g yo  
+
+    # **Web Generator**
+    $ npm install -g generator-webapp  
+    $ npm install -g generator-generator
+
+```
+
+- **Composer**
+- **Autoloading**
+- **Namespacing**
+
+- **Ruby**
+
+```bash
+    $ \curl -sSL https://get.rvm.io | bash -s stable --ruby
+
+		$ source ~/.rvm/scripts/rvm
+```
+
+- **Gufw**
+
+```bash
+    # Firewall
+    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y  gufw
+```
+
+- **Viewnior**
+
+```bash
+     $ URL='https://launchpad.net/~gilir/+archive/lubuntu/+files/viewnior_1.3.0-0ubuntu1%7Eppa1_amd64.deb'; FILE=`mktemp`; wget "$URL" -qO $FILE && sudo dpkg -i $FILE; rm $FILE
+```
+
+- **wkhtmltopdf**
+
+``` bash
+    # Convert html to pdf
+    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y  wkhtmltopdf
+
+    Ex:
+    $ wkhtmltopdf http://google.com google.pdf
+```
+
+- **pandoc**
+
+``` bash
+    # Universal document converter
+    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y pandoc
+
+    # Requirements
+    $ sudo apt-get install texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
+
+    Ex:
+    $ pandoc -f markdown -t html README.md >> README.html
+    $ pandoc latex.md -o latex.pdf
+
+```
+
+- **timeshift**
+
+``` bash
+    $ sudo apt-add-repository -y ppa:teejee2008/ppa
+    $ sudo apt-get update
+    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y timeshift
+```
+
+- **Nitro Task**
+
+``` bash
+    $ sudo add-apt-repository -y ppa:cooperjona/nitrotasks
+    $ sudo apt-get update
+    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y nitrotasks
+```
+
+
+- **Install Pantheon Desktop Environment**
+
+``` bash
+    $ sudo apt-add-repository -y ppa:elementary-os/daily
+    $ sudo apt-get update
+    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y pantheon-shell pantheon midori lingot wingpanel plank pantheon-terminal pantheon-xsession-settings contractor slingshot-launcher scratch marlin elementary-theme elementary-icon-theme ttf-droid footnote switchboard plank-theme-pantheon snap preload
+```
+
+- **ZSH**
+
+
 
 ## Programas Necesarios
 
@@ -49,97 +201,7 @@
 - timeshift
 - wine
 
-- **Git**
 
-```bash
-    $ sudo add-apt-repository ppa:git-core/ppa -y && apt-get update &&  apt-get -o Dpkg::Progress-Fancy=true install git -y
-```
-
-- **Git Extras**
-
-```bash
-    # https://github.com/visionmedia/git-extras
-    (cd /tmp && git clone --depth 1 https://github.com/visionmedia/git-extras.git && cd git-extras && sudo make install)
-```
-
-- **Nodejs**
-
-``` bash
-    $ sudo add-apt-repository ppa:chris-lea/node.js -y  && apt update && apt-get install -o Dpkg::Progress-Fancy=true -y  nodejs
-```
-
-- **Less**
-
-```bash
-    $ sudo npm install less -g
-    $ sudo ln -s /usr/bin/nodejs /usr/bin/node
-```
-
-- **Gufw**
-
-```bash
-    # Firewall
-    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y  gufw
-```
-
-- **Viewnior**
-
-```bash
-    https://launchpad.net/~gilir/+archive/lubuntu/+files/viewnior_1.3.0-0ubuntu1%7Eppa1_amd64.deb
-```
-
-- **wkhtmltopdf**
-
-``` bash 
-    # Convert html to pdf 
-    $ sudo apt install wkhtmltopdf -y
-
-    Ex:
-    $ wkhtmltopdf http://google.com google.pdf
-```
-
-- **pandoc**
-
-``` bash
-    # Universal document converter
-    $ sudo apt-get install pandoc -y
-
-    # Requerments
-    $ sudo apt-get install texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
-
-    Ex:
-    $ pandoc -f markdown -t html README.md >> README.html
-    $ pandoc latex.md -o latex.pdf
-
-```
-
-
-- **timeshift**
-
-``` bash
-    $ sudo apt-add-repository -y ppa:teejee2008/ppa
-    $ sudo apt-get update
-    $ sudo apt-get install timeshift
-```
-
-- **Nitro Task**
-
-``` bash
-    $ sudo add-apt-repository ppa:cooperjona/nitrotasks
-    $ sudo apt-get update
-    $ sudo apt-get install nitrotasks
-```
-
-
-- **Install Pantheon Desktop Environment**
-
-``` bash
-    $ sudo apt-add-repository ppa:elementary-os/daily
-    $ sudo apt-add-repository ppa:marlin-devs/marlin-daily
-    $ sudo apt-add-repository ppa:ricotz/docky
-    $ sudo apt-get update
-    $ sudo apt-get install pantheon-shell pantheon midori lingot wingpanel plank pantheon-terminal pantheon-xsession-settings contractor slingshot-launcher scratch marlin elementary-theme elementary-icon-theme ttf-droid footnote switchboard plank-theme-pantheon snap preload
-```
 
 ## Themes and Icons
 
@@ -224,11 +286,37 @@
 ```
 
 - **Owner**
-- 
+
 ```bash
     $ sudo chown -R $USER:$USER vagrant/
 ```
 
+- **View Folder size**
+
+```bash 
+    $ du -hs .
+    $ du * | sort -n
+
+    $ du -h [FOLDER] 
+    $ du -hc [FOLDER] 
+    $ du -hs [FOLDER] 
+    $ du -hs .
+    $ du -hs *
+    du -hs . --exclude="*.txt"
+
+        # Find 10 largest files/directories
+    $ du -am /var | sort -n -r | head -n 10
+    $ du -hsx * | sort -rh | head -10
+
+        
+```
+
+- **Find**
+
+```
+        # Get all extensions and their respective file count in a directory
+    $ find ./ -type f | grep -E ".*\.[a-zA-Z0-9]*$" | sed -e 's/.*\(\.[a-zA-Z0-9]*\)$/\1/' | sort | uniq -c | sort -n
+```
 
 ## Otros Comandos
 
@@ -501,12 +589,10 @@
 ```bash
     $ ll /dev/disk/by-uuid/ && ll /dev/disk/by-label/
 
-    /media/Tera02
-    /usr/bin/udisks --mount /dev/disk/by-uuid/2fc2ea6e-a2ed-4d0f-a167-0ba68925a821
+    $ sudo sublime /etc/fstab
 
+    +++ UUID=e2a5bf75-e511-4330-9f1e-efc114b9a47e /media/oo/Tera  ext4    errors=remount-ro 0       1
 
-    /media/Tera01
-    /usr/bin/udisks --mount /dev/disk/by-uuid/e2a5bf75-e511-4330-9f1e-efc114b9a47e
 ```
 
 
@@ -518,8 +604,6 @@
 
 **Edit fstab**
 ```bash
-    $ sudo sublime /etc/fstab
-
     $ sudo blkid -c /dev/null
 
     +++ UUID=3ABC75AEBC756573 /home/o/Media/Disk-2  ntfs-3g defaults,auto,uid=1000,gid=1000,umask=002 0 0
