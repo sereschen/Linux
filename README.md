@@ -1,23 +1,15 @@
 ## Linux After install
 
-1.
-
-```bash
-	$ cd /lib/x86_64-linux-gnu/
-    $ sudo ln -s libudev.so.1 libudev.so.0
-
-    $ sudo ln -sf /lib/x86_64-linux-gnu/libudev.so.1 /lib/x86_64-linux-gnu/libudev.so.0
-```
-
-2. Progress bar
+-. **Progress bar**
 
 ```bash
     $ echo 'Dpkg:Progress-Fancy "1";' | sudo tee /etc/apt/apt.conf.d/99progressbar
 ```
 
-3. Extras
+-. **Extras**
 
 ```bash
+    $ sudo ln -sf /lib/x86_64-linux-gnu/libudev.so.1 /lib/x86_64-linux-gnu/libudev.so.0
     $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y python-software-properties
     $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y software-properties-common
     $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y g++
@@ -25,6 +17,12 @@
     $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y libssl-dev
 
     $ USERME=`whoami` && sudo ln -s /media/$USERME/Tera/Apps/SublimeText3/sublime_text /usr/bin/sublime
+```
+
+-. **Essential tools for compiling from sources**
+
+```bash
+    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y checkinstall cdbs devscripts dh-make fakeroot libxml-parser-perl check
 ```
 
 - **Git**
@@ -40,10 +38,60 @@
     (cd /tmp && git clone --depth 1 https://github.com/visionmedia/git-extras.git && cd git-extras && sudo make install)
 ```
 
+- **zsh - vim - curl**
+
+```bash
+    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y \
+            curl \
+            vim \
+            zsh
+
+    $ w=`which zsh` &&  h=`whoami` && sudo chsh -s $w $h
+```
+
+- **zssh**
+
+```bash
+    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y zssh
+```
+
 - **Nodejs**
 
 ``` bash
     $ sudo add-apt-repository ppa:chris-lea/node.js -y  && sudo apt-get update && sudo apt-get install -o Dpkg::Progress-Fancy=true -y  nodejs
+    
+    $ npm config set prefix ~/.npm 
+    $ echo export PATH=$HOME/npm/.bin:$PATH >> ~/.zshrc
+
+    $ export NODE_PATH=/usr/lib/nodejs:/usr/lib/node:/usr/lib/node_modules:/usr/share/javascript:/usr/local/lib/node_modules:/home/u/.npm/lib/node_modules >> ~/.zshrc
+
+    $ source ~/.zshrc
+
+    $ sudo chown -R $USER:$USER ~/tmp/
+    $ sudo chown -R $USER:$USER ~/.npm
+    $ sudo chown -R $USER:$USER /usr/local/
+    $ sudo chown -R $USER:$USER /usr/local/lib/node_modules/
+
+    $ cd /usr/local/share/zsh && sudo chmod -R 755 ./site-functions && sudo chown -R root:root ./site-functions
+
+```
+
+-*Packages*
+
+```bash
+    # **Bower**
+    $ npm install -g bower
+
+    # **Less**
+    $ npm install -g less
+
+    # **Yeoman**
+    $ npm install -g yo  
+
+    # **Web Generator**
+    $ npm install -g generator-webapp  
+    $ npm install -g generator-generator
+
 ```
 
 - **NVM**
@@ -60,46 +108,13 @@
     # $ nvm ls
 ```
 
-- **npm, yeoman, bower, grunt**
 
-*Config*
 
-```bash
-    $ sudo chown -R $USER:$USER ~/tmp/
-    $ sudo chown -R $USER:$USER ~/.npm
-    $ sudo chown -R $USER:$USER /usr/local/
-    $ sudo chown -R $USER:$USER /usr/local/lib/node_modules/
-
-    $ cd /usr/local/share/zsh && sudo chmod -R 755 ./site-functions && sudo chown -R root:root ./site-functions
-
-    $ cat <<-EOF >> ~/.zshrc
-# |
-# | Yeoman
-# | :::::::::::::::::::::::::::
-
-export NODE_PATH=/usr/lib/nodejs:/usr/lib/node:/usr/lib/node_modules:/usr/share/javascript:/usr/local/lib/node_modules:/home/u/npm/lib/node_modules
-EOF
-
-    $ source ~/.zshrc
-```
-
--*Packages*
-
-```bash
-    # **Less**
-    $ npm install -g less
-
-    # **Yeoman**
-    $ npm install -g yo  
-
-    # **Web Generator**
-    $ npm install -g generator-webapp  
-    $ npm install -g generator-generator
-
-```
 
 - **Composer**
+
 - **Autoloading**
+
 - **Namespacing**
 
 - **Ruby**
@@ -164,27 +179,89 @@ EOF
     $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y nitrotasks
 ```
 
-
 - **Install Pantheon Desktop Environment**
 
 ``` bash
-    $ sudo apt-add-repository -y ppa:elementary-os/daily
-    $ sudo apt-get update
-    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y pantheon-shell pantheon midori lingot wingpanel plank pantheon-terminal pantheon-xsession-settings contractor slingshot-launcher scratch marlin elementary-theme elementary-icon-theme ttf-droid footnote switchboard plank-theme-pantheon snap preload
+    $ sudo apt-add-repository -y ppa:elementary-os/daily && sudo apt-get update
+    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y  elementary-theme elementary-icon-theme 
 ```
 
-- **ZSH**
+- **Boot Repair**
 
+```bash
+    $ sudo add-apt-repository ppa:yannubuntu/boot-repair
+    $ sudo apt-get update
+    $ sudo apt-get install -y boot-repair && boot-repair
+```
 
+- **Grub Customizer**
+
+```bash
+    $ sudo add-apt-repository ppa:danielrichter2007/grub-customizer
+    $ sudo apt-get update
+    $ sudo apt-get install grub-customizer
+```
+
+- **Cairo-Dock**
+
+```bash
+    $ sudo add-apt-repository ppa:cairo-dock-team/ppa
+    $ sudo apt-get update
+    $ sudo apt-get install cairo-dock cairo-dock-plug-ins
+```
+
+- **Samba**
+
+```bash
+    $ sudo apt-get install samba system-config-samba cifs-utils winbind
+```
+
+- **Java**
+
+```bash
+    $ sudo apt-get install openjdk-7-jdk openjdk-7-jre icedtea-7-plugin
+    $ sudo update-alternatives --config java
+```
+
+- **Packing software**
+
+```bash
+    $ sudo apt-get install unace rar unrar p7zip-rar p7zip zip unzip sharutils uudeview mpack arj cabextract file-roller
+```
+
+- **Steam**
+
+```bash
+    $ wget -c media.steampowered.com/client/installer/steam.deb
+    $ sudo dpkg -i steam.deb
+    $ sudo apt-get install -f
+```
+
+- **Filezilla**
+
+```bash
+    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y filezilla filezilla-common
+```
+
+- **Calibre**
+
+```bash
+    $ sudo apt-get install calibre
+```
+
+- **PeerGuardian Linux**
+
+```bash
+    $ sudo add-apt-repository ppa:jre-phoenix/ppa
+    $ sudo apt-get update
+    $ sudo apt-get install pgld pglcmd pglgui
+```
 
 ## Programas Necesarios
 
 - Alsamixer
 - Angry IP Scanner -  http://angryip.org/
 - Bless Hex Editor
-- brackets
-- Cairo-Dock
-- dbeaver
 - gpick
 - haroopad
 - htop
@@ -194,7 +271,6 @@ EOF
 - pac
 - pidgin
 - qshutdown
-- Samba
 - shutter
 - springseed
 - sublime text
@@ -293,13 +369,13 @@ EOF
 
 - **View Folder size**
 
-```bash 
+```bash
     $ du -hs .
     $ du * | sort -n
 
-    $ du -h [FOLDER] 
-    $ du -hc [FOLDER] 
-    $ du -hs [FOLDER] 
+    $ du -h [FOLDER]
+    $ du -hc [FOLDER]
+    $ du -hs [FOLDER]
     $ du -hs .
     $ du -hs *
     du -hs . --exclude="*.txt"
@@ -308,7 +384,7 @@ EOF
     $ du -am /var | sort -n -r | head -n 10
     $ du -hsx * | sort -rh | head -10
 
-        
+
 ```
 
 - **Find**
@@ -435,6 +511,22 @@ EOF
     $ scp FILE USER@SERVER:LOCATION
 ```
 
+## rmate
+
+```bash
+    $ curl https://raw.github.com/aurora/rmate/master/rmate > rmate
+
+    $ sudo mv rmate /usr/local/bin
+        $  sudo mv rmate ~/.local/bin
+        
+    $ sudo chmod +x /usr/local/bin/rmate
+
+    $ sudo iptables -A INPUT -p tcp --dport 52698 -j ACCEPT
+
+
+```
+
+
 ## Download full website
 
 ```bash
@@ -452,6 +544,7 @@ EOF
 ```
 
 ## Cron
+
 
 - View Root User Cronjob
 
@@ -625,3 +718,40 @@ EOF
         exec('tar -xzf SecretariaSalud.tar.gz',$ret);
     ?>
 ```
+
+
+## Vagrant
+
+    $ vagrant box add [name] [url]
+
+    $ vagrant box list
+
+    $ vagrant box remove [name]
+
+    $ vagrant init ubuntu/trusty64
+
+    $ vagrant init [BOX_NAME] [URL]
+
+    $ vagrant up
+
+    $ vagrant ssh
+
+    $ vagrant suspend
+
+    $ vagrant resume
+
+    $ vagrant halt
+
+    $ vagrant restart
+
+    $ vagrant destroy
+
+
+
+    config.vm.synced_folder [Local], [Vagrant box]
+
+## PUPPET
+
+    $ puppet apply --noop
+
+    $ puppet apply --noop
