@@ -108,9 +108,6 @@
     # $ nvm ls
 ```
 
-
-
-
 - **Composer**
 
 - **Autoloading**
@@ -182,8 +179,7 @@
 - **Install Pantheon Desktop Environment**
 
 ``` bash
-    $ sudo apt-add-repository -y ppa:elementary-os/daily && sudo apt-get update
-    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y  elementary-theme elementary-icon-theme 
+    $ sudo apt-add-repository -y ppa:elementary-os/daily && sudo apt-get update && sudo apt-get install -o Dpkg::Progress-Fancy=true -y  elementary-theme elementary-icon-theme 
 ```
 
 - **Boot Repair**
@@ -255,6 +251,12 @@
     $ sudo add-apt-repository ppa:jre-phoenix/ppa
     $ sudo apt-get update
     $ sudo apt-get install pgld pglcmd pglgui
+```
+
+- **Folder Colors**
+
+```bash
+    $ sudo add-apt-repository ppa:costales/folder-color -y && sudo apt-get update && sudo apt-get install folder-color -y && sudo apt-get install python-nemo && sudo cp /usr/share/nautilus-python/extensions/folder-color.py /usr/share/nemo-python/extensions/ && sudo sed -i 's/Nautilus/Nemo/g' /usr/share/nemo-python/extensions/folder-color.py && nemo -q
 ```
 
 ## Programas Necesarios
