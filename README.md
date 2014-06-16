@@ -1,28 +1,52 @@
 ## Linux After install
 
--. **Progress bar**
+- **Progress bar**
 
 ```bash
     $ echo 'Dpkg:Progress-Fancy "1";' | sudo tee /etc/apt/apt.conf.d/99progressbar
 ```
 
--. **Extras**
+- **Extras**
 
 ```bash
     $ sudo ln -sf /lib/x86_64-linux-gnu/libudev.so.1 /lib/x86_64-linux-gnu/libudev.so.0
-    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y python-software-properties
-    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y software-properties-common
-    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y g++
-    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y build-essential
-    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y libssl-dev
+
+    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y autoconf automake  build-essential libxslt1-dev re2c libxml2 libxml2-dev bison libbz2-dev libreadline-dev libfreetype6 libfreetype6-dev libpng12-0 libpng12-dev libjpeg-dev libjpeg8-dev libjpeg8  libgd-dev libgd3 libxpm4 libssl-dev openssl gettext libgettextpo-dev libgettextpo0 libicu-dev libmhash-dev libmhash2 libmcrypt-dev libmcrypt4 python-software-properties software-properties-common g++ build-essential libssl-dev
+
+    # Essential tools for compiling from sources
+    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y checkinstall cdbs devscripts dh-make fakeroot libxml-parser-perl check
 
     $ USERME=`whoami` && sudo ln -s /media/$USERME/Tera/Apps/SublimeText3/sublime_text /usr/bin/sublime
 ```
 
--. **Essential tools for compiling from sources**
+- **Puppet**
 
 ```bash
-    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y checkinstall cdbs devscripts dh-make fakeroot libxml-parser-perl check
+    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y puppet puppet-common
+```
+
+- **Curl**
+
+```bash
+    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y curl
+```
+
+- **php5**
+
+```bash
+    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y php5 php5-dev php-pear php5-cli
+```
+
+- **Mysql**
+
+```bash
+    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y mysql-server mysql-client libmysqlclient-dev libmysqld-dev
+```
+
+- **Postgresql**
+
+```bash
+    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y postgresql postgresql-client postgresql-contrib
 ```
 
 - **Git**
@@ -38,11 +62,10 @@
     (cd /tmp && git clone --depth 1 https://github.com/visionmedia/git-extras.git && cd git-extras && sudo make install)
 ```
 
-- **zsh - vim - curl**
+- **zsh - vim**
 
 ```bash
     $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y \
-            curl \
             vim \
             zsh
 
@@ -59,21 +82,25 @@
 
 ``` bash
     $ sudo add-apt-repository ppa:chris-lea/node.js -y  && sudo apt-get update && sudo apt-get install -o Dpkg::Progress-Fancy=true -y  nodejs
-    
-    $ npm config set prefix ~/.npm 
-    $ echo export PATH=$HOME/npm/.bin:$PATH >> ~/.zshrc
 
-    $ export NODE_PATH=/usr/lib/nodejs:/usr/lib/node:/usr/lib/node_modules:/usr/share/javascript:/usr/local/lib/node_modules:/home/u/.npm/lib/node_modules >> ~/.zshrc
+    $ npm config set prefix ~/.npm
 
-    $ source ~/.zshrc
-
+    $ sudo mkdir ~/tmp
     $ sudo chown -R $USER:$USER ~/tmp/
     $ sudo chown -R $USER:$USER ~/.npm
-    $ sudo chown -R $USER:$USER /usr/local/
-    $ sudo chown -R $USER:$USER /usr/local/lib/node_modules/
 
-    $ cd /usr/local/share/zsh && sudo chmod -R 755 ./site-functions && sudo chown -R root:root ./site-functions
+    $ cd /usr/local/share/zsh && sudo chmod -R 755 ./site-functions && sudo chown -R root:root ./site-functions && cd
 
+cat <<-EOF >> ~/.zshrc
+
+# |::::::::::::::::::>>>npm
+# | Path for nodejs and npm
+export PATH=$HOME/npm/.bin:$PATH
+export NODE_PATH=/usr/lib/nodejs:/usr/lib/node:/usr/lib/node_modules:/usr/share/javascript:/usr/local/lib/node_modules:$HOME/.npm:$HOME/.npm/lib/node_modules
+# |::::::::::::::::::<<<
+EOF
+
+    $ source ~/.zshrc
 ```
 
 -*Packages*
@@ -86,10 +113,10 @@
     $ npm install -g less
 
     # **Yeoman**
-    $ npm install -g yo  
+    $ npm install -g yo
 
     # **Web Generator**
-    $ npm install -g generator-webapp  
+    $ npm install -g generator-webapp
     $ npm install -g generator-generator
 
 ```
@@ -119,7 +146,7 @@
 ```bash
     $ \curl -sSL https://get.rvm.io | bash -s stable --ruby
 
-		$ source ~/.rvm/scripts/rvm
+	$ source ~/.rvm/scripts/rvm
 ```
 
 - **Gufw**
@@ -179,7 +206,7 @@
 - **Install Pantheon Desktop Environment**
 
 ``` bash
-    $ sudo apt-add-repository -y ppa:elementary-os/daily && sudo apt-get update && sudo apt-get install -o Dpkg::Progress-Fancy=true -y  elementary-theme elementary-icon-theme 
+    $ sudo apt-add-repository -y ppa:elementary-os/daily && sudo apt-get update && sudo apt-get install -o Dpkg::Progress-Fancy=true -y  elementary-theme elementary-icon-theme
 ```
 
 - **Boot Repair**
@@ -201,9 +228,7 @@
 - **Cairo-Dock**
 
 ```bash
-    $ sudo add-apt-repository ppa:cairo-dock-team/ppa
-    $ sudo apt-get update
-    $ sudo apt-get install cairo-dock cairo-dock-plug-ins
+    $ sudo add-apt-repository -y ppa:cairo-dock-team/ppa && sudo apt-get update && sudo apt-get install -o Dpkg::Progress-Fancy=true -y cairo-dock cairo-dock-plug-ins
 ```
 
 - **Samba**
@@ -394,6 +419,9 @@
 ```
         # Get all extensions and their respective file count in a directory
     $ find ./ -type f | grep -E ".*\.[a-zA-Z0-9]*$" | sed -e 's/.*\(\.[a-zA-Z0-9]*\)$/\1/' | sort | uniq -c | sort -n
+
+        # Make the "tree" command pretty and useful by default
+    alias tree="tree -CAFa -I 'CVS|*.*.package|.svn|.git' --dirsfirst"
 ```
 
 ## Otros Comandos
@@ -520,7 +548,7 @@
 
     $ sudo mv rmate /usr/local/bin
         $  sudo mv rmate ~/.local/bin
-        
+
     $ sudo chmod +x /usr/local/bin/rmate
 
     $ sudo iptables -A INPUT -p tcp --dport 52698 -j ACCEPT
@@ -757,3 +785,8 @@
     $ puppet apply --noop
 
     $ puppet apply --noop
+
+## Web Dev Utils
+
+- **Koala**
+- **Pleeease - http://pleeease.io/**
