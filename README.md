@@ -1,4 +1,4 @@
-## Linux After install
+# Linux After install
 
 - **Progress bar**
 
@@ -11,10 +11,10 @@
 ```shell
     $ sudo ln -sf /lib/x86_64-linux-gnu/libudev.so.1 /lib/x86_64-linux-gnu/libudev.so.0
 
-    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y autoconf automake  build-essential libxslt1-dev re2c libxml2 libxml2-dev bison libbz2-dev libreadline-dev libfreetype6 libfreetype6-dev libpng12-0 libpng12-dev libjpeg-dev libjpeg8-dev libjpeg8  libgd-dev libgd3 libxpm4 libssl-dev openssl gettext libgettextpo-dev libgettextpo0 libicu-dev libmhash-dev libmhash2 libmcrypt-dev libmcrypt4 python-software-properties software-properties-common g++ build-essential libssl-dev
+    $ sudo apt install -y autoconf automake  build-essential libxslt1-dev re2c libxml2 libxml2-dev bison libbz2-dev libreadline-dev libfreetype6 libfreetype6-dev libpng12-0 libpng12-dev libjpeg-dev libjpeg8-dev libjpeg8  libgd-dev libgd3 libxpm4 libssl-dev openssl gettext libgettextpo-dev libgettextpo0 libicu-dev libmhash-dev libmhash2 libmcrypt-dev libmcrypt4 python-software-properties software-properties-common g++ build-essential libssl-dev pkg-config
 
     # Essential tools for compiling from sources
-    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y checkinstall cdbs devscripts dh-make fakeroot libxml-parser-perl check
+    $ sudo apt install -y checkinstall cdbs devscripts dh-make fakeroot libxml-parser-perl check
 
     $ USERME=`whoami` && sudo ln -s /media/$USERME/Tera/Apps/SublimeText3/sublime_text /usr/bin/sublime
 ```
@@ -22,37 +22,37 @@
 - **Puppet**
 
 ```shell
-    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y puppet puppet-common
+    $ sudo apt install -y puppet puppet-common
 ```
 
 - **Curl**
 
 ```shell
-    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y curl
+    $ sudo apt install -y curl
 ```
 
 - **php5**
 
 ```shell
-    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y php5 php5-dev php-pear php5-cli
+    $ sudo apt install -y php5 php5-dev php-pear php5-cli
 ```
 
 - **Mysql**
 
 ```shell
-    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y mysql-server mysql-client libmysqlclient-dev libmysqld-dev
+    $ sudo apt install -y mysql-server mysql-client libmysqlclient-dev libmysqld-dev
 ```
 
 - **Postgresql**
 
 ```shell
-    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y postgresql postgresql-client postgresql-contrib
+    $ sudo apt install -y postgresql postgresql-client postgresql-contrib
 ```
 
 - **Git**
 
 ```shell
-    $ sudo add-apt-repository ppa:git-core/ppa -y && sudo apt-get update &&  sudo apt-get -o Dpkg::Progress-Fancy=true install git -y
+    $ sudo add-apt-repository ppa:git-core/ppa -y && sudo apt update &&  sudo apt install git -y
 ```
 
 - **Git Extras**
@@ -65,7 +65,7 @@
 - **zsh - vim**
 
 ```shell
-    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y \
+    $ sudo apt install -y \
             vim \
             zsh
 
@@ -75,13 +75,13 @@
 - **zssh**
 
 ```shell
-    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y zssh
+    $ sudo apt install -y zssh
 ```
 
 - **Nodejs**
 
 ``` bash
-    $ sudo add-apt-repository ppa:chris-lea/node.js -y  && sudo apt-get update && sudo apt-get install -o Dpkg::Progress-Fancy=true -y  nodejs
+    $ sudo add-apt-repository ppa:chris-lea/node.js -y  && sudo apt update && sudo apt install -y  nodejs
 
     $ npm config set prefix ~/.npm
 
@@ -153,7 +153,7 @@ EOF
 
 ```shell
     # Firewall
-    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y  gufw
+    $ sudo apt install -y  gufw
 ```
 
 - **Viewnior**
@@ -166,7 +166,7 @@ EOF
 
 ``` bash
     # Convert html to pdf
-    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y  wkhtmltopdf
+    $ sudo apt install -y  wkhtmltopdf
 
     Ex:
     $ wkhtmltopdf http://google.com google.pdf
@@ -176,10 +176,10 @@ EOF
 
 ``` bash
     # Universal document converter
-    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y pandoc
+    $ sudo apt install -y pandoc
 
     # Requirements
-    $ sudo apt-get install texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
+    $ sudo apt install texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
 
     Ex:
     $ pandoc -f markdown -t html README.md >> README.html
@@ -191,63 +191,63 @@ EOF
 
 ``` bash
     $ sudo apt-add-repository -y ppa:teejee2008/ppa
-    $ sudo apt-get update
-    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y timeshift
+    $ sudo apt update
+    $ sudo apt install -y timeshift
 ```
 
 - **Nitro Task**
 
 ``` bash
     $ sudo add-apt-repository -y ppa:cooperjona/nitrotasks
-    $ sudo apt-get update
-    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y nitrotasks
+    $ sudo apt update
+    $ sudo apt install -y nitrotasks
 ```
 
 - **Install Pantheon Desktop Environment**
 
 ``` bash
-    $ sudo apt-add-repository -y ppa:elementary-os/daily && sudo apt-get update && sudo apt-get install -o Dpkg::Progress-Fancy=true -y  elementary-theme elementary-icon-theme
+    $ sudo apt-add-repository -y ppa:elementary-os/daily && sudo apt update && sudo apt install -y  elementary-theme elementary-icon-theme
 ```
 
 - **Boot Repair**
 
 ```shell
     $ sudo add-apt-repository ppa:yannubuntu/boot-repair
-    $ sudo apt-get update
-    $ sudo apt-get install -y boot-repair && boot-repair
+    $ sudo apt update
+    $ sudo apt install -y boot-repair && boot-repair
 ```
 
 - **Grub Customizer**
 
 ```shell
     $ sudo add-apt-repository ppa:danielrichter2007/grub-customizer
-    $ sudo apt-get update
-    $ sudo apt-get install grub-customizer
+    $ sudo apt update
+    $ sudo apt install grub-customizer
 ```
 
 - **Cairo-Dock**
 
 ```shell
-    $ sudo add-apt-repository -y ppa:cairo-dock-team/ppa && sudo apt-get update && sudo apt-get install -o Dpkg::Progress-Fancy=true -y cairo-dock cairo-dock-plug-ins
+    $ sudo add-apt-repository -y ppa:cairo-dock-team/ppa && sudo apt update && sudo apt install -y cairo-dock cairo-dock-plug-ins
 ```
 
 - **Samba**
 
 ```shell
-    $ sudo apt-get install samba system-config-samba cifs-utils winbind
+    $ sudo apt install samba system-config-samba cifs-utils winbind
 ```
 
 - **Java**
 
 ```shell
-    $ sudo apt-get install openjdk-7-jdk openjdk-7-jre icedtea-7-plugin
+    $ sudo apt install openjdk-7-jdk openjdk-7-jre icedtea-7-plugin
     $ sudo update-alternatives --config java
 ```
 
 - **Packing software**
 
 ```shell
-    $ sudo apt-get install unace rar unrar p7zip-rar p7zip zip unzip sharutils uudeview mpack arj cabextract file-roller
+    $ sudo apt install unace rar unrar p7zip-rar p7zip zip unzip sharutils uudeview mpack arj cabextract file-roller
 ```
 
 - **Steam**
@@ -255,51 +255,57 @@ EOF
 ```shell
     $ wget -c media.steampowered.com/client/installer/steam.deb
     $ sudo dpkg -i steam.deb
-    $ sudo apt-get install -f
+    $ sudo apt install -f
 ```
 
 - **Filezilla**
 
 ```shell
-    $ sudo apt-get install -o Dpkg::Progress-Fancy=true -y filezilla filezilla-common
+    $ sudo apt install -y filezilla filezilla-common
 ```
 
 - **Calibre**
 
 ```shell
-    $ sudo apt-get install calibre
+    $ sudo apt install calibre
 ```
 
 - **PeerGuardian Linux**
 
 ```shell
     $ sudo add-apt-repository ppa:jre-phoenix/ppa
-    $ sudo apt-get update
-    $ sudo apt-get install pgld pglcmd pglgui
+    $ sudo apt update
+    $ sudo apt install pgld pglcmd pglgui
 ```
 
 - **Folder Colors**
 
 ```shell
-    $ sudo add-apt-repository ppa:costales/folder-color -y && sudo apt-get update && sudo apt-get install folder-color -y && sudo apt-get install python-nemo && sudo cp /usr/share/nautilus-python/extensions/folder-color.py /usr/share/nemo-python/extensions/ && sudo sed -i 's/Nautilus/Nemo/g' /usr/share/nemo-python/extensions/folder-color.py && nemo -q
+    $ sudo add-apt-repository ppa:costales/folder-color -y && sudo apt update && sudo apt install folder-color -y && sudo apt install python-nemo && sudo cp /usr/share/nautilus-python/extensions/folder-color.py /usr/share/nemo-python/extensions/ && sudo sed -i 's/Nautilus/Nemo/g' /usr/share/nemo-python/extensions/folder-color.py && nemo -q
 ```
 
-## ** VNC **
+- **XBMC**
+
+```shell
+    $ sudo add-apt-repository ppa:team-xbmc/ppa; sudo apt update; sudo apt install -y xbmc
+```
+
+## **VNC**
 
 - Update
 
 ```shell
-    $ apt-get update; apt-get dist-upgrade -y --force-yes
+    $ apt update; apt dist-upgrade -y --force-yes
 ```
 
 ```shell
-    $ apt-get install xubuntu-desktop xfce4 firefox nano -y --force-yes
+    $ apt install xubuntu-desktop xfce4 firefox nano -y --force-yes
 ```
 
 - Install VNC
 
 ```shell
-    $ apt-get install vnc4server
+    $ apt install vnc4server
 ```
 
 - check
@@ -410,7 +416,6 @@ status Xvnc
 echo $"Usage: $0 {start|stop|restart|condrestart|status}"
 exit 1
 esac
-
 ```
 
 ```shell
@@ -441,7 +446,7 @@ VNCSERVERARGS[2]="-geometry 800x600 -depth 8"
     $ vnc4server
 ```
 
-## Programas Necesarios
+## **Programas Necesarios**
 
 - Alsamixer
 - Angry IP Scanner -  http://angryip.org/
@@ -469,8 +474,8 @@ VNCSERVERARGS[2]="-geometry 800x600 -depth 8"
 
 ``` bash
     $ sudo add-apt-repository ppa:noobslab/icons
-    $ sudo apt-get update
-    $ sudo apt-get install ieos7-icons
+    $ sudo apt update
+    $ sudo apt install ieos7-icons
 ```
 
 - **Faience**
@@ -479,32 +484,32 @@ VNCSERVERARGS[2]="-geometry 800x600 -depth 8"
     http://tiheum.deviantart.com/art/Faience-icon-theme-255099649
 
    $ sudo add-apt-repository ppa:tiheum/equinox
-   $ sudo apt-get update
-   $ sudo apt-get install faience-theme faience-icon-theme
+   $ sudo apt update
+   $ sudo apt install faience-theme faience-icon-theme
 ```
 
 - **Compass Icons**
 
 ``` bash
    $ sudo ppa:noobslab/nitrux-os
-   $ sudo apt-get update
-   $ sudo apt-get install compass-icons
+   $ sudo apt update
+   $ sudo apt install compass-icons
 ```
 
 - **Pacifica Icons**
 
 ``` bash
    $ sudo add-apt-repository ppa:fsvh/pacifica-icon-theme
-   $ sudo apt-get update
-   $ sudo apt-get install pacifica-icon-theme
+   $ sudo apt update
+   $ sudo apt install pacifica-icon-theme
 ```
 
 - **Nitrux Icons**
 
 ``` bash
    $ sudo add-apt-repository ppa:upubuntu-com/nitrux
-   $ sudo apt-get update
-   $ sudo apt-get install nitruxos
+   $ sudo apt update
+   $ sudo apt install nitruxos
 ```
 
 - **Faience**
@@ -515,7 +520,7 @@ VNCSERVERARGS[2]="-geometry 800x600 -depth 8"
     http://tiheum.deviantart.com/art/Faience-icon-theme-255099649
 
     $ sudo add-apt-repository ppa:tiheum/equinox
-    $ sudo apt-get update && sudo apt-get install faience-theme faience-icon-theme
+    $ sudo apt update && sudo apt install faience-theme faience-icon-theme
 
 ```
 
@@ -859,7 +864,7 @@ VNCSERVERARGS[2]="-geometry 800x600 -depth 8"
 ## Config Bandwidth
 
 ```shell
-    $ sudo apt-get install trickle
+    $ sudo apt install -y trickle
 ```
 
 
