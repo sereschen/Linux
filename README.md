@@ -91,12 +91,15 @@
 
     $ cd /usr/local/share/zsh && sudo chmod -R 755 ./site-functions && sudo chown -R root:root ./site-functions && cd
 
+    $ sudo npm update -g
+
 cat <<-EOF >> ~/.zshrc
 
 # |::::::::::::::::::>>>npm
 # | Path for nodejs and npm
 export PATH=$HOME/npm/.bin:$PATH
 export NODE_PATH=/usr/lib/nodejs:/usr/lib/node:/usr/lib/node_modules:/usr/share/javascript:/usr/local/lib/node_modules:$HOME/.npm:$HOME/.npm/lib/node_modules
+export PATH=$HOME/.npm/bin:$PATH
 # |::::::::::::::::::<<<
 EOF
 
