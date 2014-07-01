@@ -2,13 +2,13 @@
 
 - **Progress bar**
 
-```shell
+```sh
     $ echo 'Dpkg:Progress-Fancy "1";' | sudo tee /etc/apt/apt.conf.d/99progressbar
 ```
 
 - **Extras**
 
-```shell
+```sh
     $ sudo ln -sf /lib/x86_64-linux-gnu/libudev.so.1 /lib/x86_64-linux-gnu/libudev.so.0
 
     $ sudo apt install -y autoconf automake  build-essential libxslt1-dev re2c libxml2 libxml2-dev bison libbz2-dev libreadline-dev libfreetype6 libfreetype6-dev libpng12-0 libpng12-dev libjpeg-dev libjpeg8-dev libjpeg8  libgd-dev libgd3 libxpm4 libssl-dev openssl gettext libgettextpo-dev libgettextpo0 libicu-dev libmhash-dev libmhash2 libmcrypt-dev libmcrypt4 python-software-properties software-properties-common g++ build-essential libssl-dev pkg-config
@@ -21,50 +21,50 @@
 
 - **Puppet**
 
-```shell
+```sh
     $ sudo apt install -y puppet puppet-common
 ```
 
 - **Curl**
 
-```shell
+```sh
     $ sudo apt install -y curl
 ```
 
 - **php5**
 
-```shell
+```sh
     $ sudo apt install -y php5 php5-dev php-pear php5-cli
 ```
 
 - **Mysql**
 
-```shell
+```sh
     $ sudo apt install -y mysql-server mysql-client libmysqlclient-dev libmysqld-dev
 ```
 
 - **Postgresql**
 
-```shell
+```sh
     $ sudo apt install -y postgresql postgresql-client postgresql-contrib
 ```
 
 - **Git**
 
-```shell
+```sh
     $ sudo add-apt-repository ppa:git-core/ppa -y && sudo apt update &&  sudo apt install git -y
 ```
 
 - **Git Extras**
 
-```shell
+```sh
     # https://github.com/visionmedia/git-extras
     (cd /tmp && git clone --depth 1 https://github.com/visionmedia/git-extras.git && cd git-extras && sudo make install)
 ```
 
 - **zsh - vim**
 
-```shell
+```sh
     $ sudo apt install -y \
             vim \
             zsh
@@ -72,9 +72,89 @@
     $ w=`which zsh` &&  h=`whoami` && sudo chsh -s $w $h
 ```
 
+## Installing ZSH
+
+```bash
+    $ sudo apt-get update
+
+    $ sudo apt-get install -y \
+        curl \
+        vim \
+        git \
+        zsh
+```
+
+- **Installing Oh-My-ZSH**
+
+```bash
+    $ curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | bash
+```
+
+- **Setting ZSH as the default shell (instead of bash)**
+
+```bash
+    $ w=`which zsh` &&  h=`whoami` && sudo chsh -s $w $h
+```
+
+- **Install antigen**
+
+```bash
+    $ cd ~ && git clone https://github.com/zsh-users/antigen.git .antigen
+```
+
+- **Install antigen - Add**
+    >>> ~/.zshrc
+
+```bash
+cat <<-EOF >> ~/.zshrc
+# |::::::::::::::::::>>>zsh
+source "$HOME/.antigen/antigen.zsh"
+
+# antigen bundle bundler
+# antigen bundle command-not-found
+# antigen bundle fabric
+# antigen bundle heroku
+# antigen bundle kennethreitz/autoenv
+# antigen bundle lein
+# antigen bundle node
+# antigen bundle pip
+# antigen bundle python
+# antigen bundle rake
+# antigen bundle rvm
+# antigen bundle sprunge
+# antigen bundle vundle
+
+antigen bundle npm
+antigen bundle history
+antigen bundle rsync
+antigen-bundle vagrant
+antigen bundle git
+antigen bundle zsh-users/zsh-completions src
+antigen-bundle arialdomartini/oh-my-git
+antigen-bundle zsh-users/zsh-history-substring-search
+antigen-bundle zsh-users/zsh-syntax-highlighting
+
+antigen theme Mayccoll/oh-my-git-themes arrow-green
+
+antigen-apply
+# |::::::::::::::::::<<<zsh
+EOF
+```
+
+### Installing ZSH Centos
+
+```bash
+    $ yum install zsh
+
+    $ h=`whoami` && usermod -s /bin/zsh $h
+```
+
+- **Fix Errors**
+    $ rm ~/.antigen/repos/https-COLON--SLASH--SLASH-gi* -rf
+
 - **zssh**
 
-```shell
+```sh
     $ sudo apt install -y zssh
 ```
 
@@ -108,7 +188,7 @@ EOF
 
 -*Packages*
 
-```shell
+```sh
     # **Bower**
     $ npm install -g bower
 
@@ -126,7 +206,7 @@ EOF
 
 - **NVM**
 
-```shell
+```sh
     $ curl https://raw.githubusercontent.com/creationix/nvm/v0.7.0/install.sh | sh
     $ echo "source ~/.nvm/nvm.sh" >> ~/.zshrc
     $ source ~/.nvm/nvm.sh && source ~/.nvm/nvm.sh
@@ -146,7 +226,7 @@ EOF
 
 - **Ruby**
 
-```shell
+```sh
     $ \curl -sSL https://get.rvm.io | bash -s stable --ruby
 
 	$ source ~/.rvm/scripts/rvm
@@ -154,14 +234,14 @@ EOF
 
 - **Gufw**
 
-```shell
+```sh
     # Firewall
     $ sudo apt install -y  gufw
 ```
 
 - **Viewnior**
 
-```shell
+```sh
      $ URL='https://launchpad.net/~gilir/+archive/lubuntu/+files/viewnior_1.3.0-0ubuntu1%7Eppa1_amd64.deb'; FILE=`mktemp`; wget "$URL" -qO $FILE && sudo dpkg -i $FILE; rm $FILE
 ```
 
@@ -214,7 +294,7 @@ EOF
 
 - **Boot Repair**
 
-```shell
+```sh
     $ sudo add-apt-repository ppa:yannubuntu/boot-repair
     $ sudo apt update
     $ sudo apt install -y boot-repair && boot-repair
@@ -222,7 +302,7 @@ EOF
 
 - **Grub Customizer**
 
-```shell
+```sh
     $ sudo add-apt-repository ppa:danielrichter2007/grub-customizer
     $ sudo apt update
     $ sudo apt install grub-customizer
@@ -230,32 +310,32 @@ EOF
 
 - **Cairo-Dock**
 
-```shell
+```sh
     $ sudo add-apt-repository -y ppa:cairo-dock-team/ppa && sudo apt update && sudo apt install -y cairo-dock cairo-dock-plug-ins
 ```
 
 - **Samba**
 
-```shell
+```sh
     $ sudo apt install samba system-config-samba cifs-utils winbind
 ```
 
 - **Java**
 
-```shell
+```sh
     $ sudo apt install openjdk-7-jdk openjdk-7-jre icedtea-7-plugin
     $ sudo update-alternatives --config java
 ```
 
 - **Packing software**
 
-```shell
+```sh
     $ sudo apt install unace rar unrar p7zip-rar p7zip zip unzip sharutils uudeview mpack arj cabextract file-roller
 ```
 
 - **Steam**
 
-```shell
+```sh
     $ wget -c media.steampowered.com/client/installer/steam.deb
     $ sudo dpkg -i steam.deb
     $ sudo apt install -f
@@ -263,19 +343,19 @@ EOF
 
 - **Filezilla**
 
-```shell
+```sh
     $ sudo apt install -y filezilla filezilla-common
 ```
 
 - **Calibre**
 
-```shell
+```sh
     $ sudo apt install calibre
 ```
 
 - **PeerGuardian Linux**
 
-```shell
+```sh
     $ sudo add-apt-repository ppa:jre-phoenix/ppa
     $ sudo apt update
     $ sudo apt install pgld pglcmd pglgui
@@ -283,13 +363,13 @@ EOF
 
 - **Folder Colors**
 
-```shell
+```sh
     $ sudo add-apt-repository ppa:costales/folder-color -y && sudo apt update && sudo apt install folder-color -y && sudo apt install python-nemo && sudo cp /usr/share/nautilus-python/extensions/folder-color.py /usr/share/nemo-python/extensions/ && sudo sed -i 's/Nautilus/Nemo/g' /usr/share/nemo-python/extensions/folder-color.py && nemo -q
 ```
 
 - **XBMC**
 
-```shell
+```sh
     $ sudo add-apt-repository ppa:team-xbmc/ppa; sudo apt update; sudo apt install -y xbmc
 ```
 
@@ -297,35 +377,35 @@ EOF
 
 - Update
 
-```shell
+```sh
     $ apt update; apt dist-upgrade -y --force-yes
 ```
 
-```shell
+```sh
     $ apt install xubuntu-desktop xfce4 firefox nano -y --force-yes
 ```
 
 - Install VNC
 
-```shell
+```sh
     $ apt install vnc4server
 ```
 
 - check
 
-```shell
+```sh
     $ dpkg -l | grep vnc
 ```
 
 - Add user
 
-```shell
+```sh
     $ adduser master
 ```
 
 - Config VNC
 
-```shell
+```sh
     $ su - master
     $ vncserver
     $ cp ~/.vnc/xstartup ~/.vnc/xstartup.bak
@@ -333,7 +413,7 @@ EOF
     $ vi ~/.vnc/xstartup
 ```
 
-```shell
+```sh
 #!/bin/sh
 unset SESSION_MANAGER
 unset DBUS_SESSION_BUS_ADDRESS
@@ -345,13 +425,13 @@ xsetroot -solid grey
 vncconfig -iconic &
 ```
 
-```shell
+```sh
     $ vncserver -kill :1
     $ exit
     $ vi /etc/init.d/vncserver
 ```
 
-```shell
+```sh
 #!/bin/bash
 
 unset VNCSERVERARGS
@@ -421,13 +501,13 @@ exit 1
 esac
 ```
 
-```shell
+```sh
     $ chmod +x /etc/init.d/vncserver
     $ mkdir -p /etc/vncserver
     $ vi /etc/vncserver/vncservers.conf
 ```
 
-```shell
+```sh
 VNCSERVERS="1:master 2:root"
 
 VNCSERVERARGS[1]="-geometry 1440x768"
@@ -439,13 +519,13 @@ VNCSERVERARGS[2]="-geometry 1920x1080 -depth 24"
 VNCSERVERARGS[2]="-geometry 800x600 -depth 8"
 ```
 
-```shell
+```sh
     $ update-rc.d vncserver defaults 99
     $ reboot
 ```
 - Start VNC
 
-```shell
+```sh
     $ vnc4server
 ```
 
@@ -531,37 +611,37 @@ VNCSERVERARGS[2]="-geometry 800x600 -depth 8"
 
 - **Add Usuario**
 
-```shell
+```sh
     $ sudo adduser [newuser]
 ```
 
 - **Delete User**
 
-```shell
+```sh
     $ sudo userdel [newuser]
 ```
 
 - **Add User to Group**
 
-```shell
+```sh
     $ sudo adduser [user] [group]
 ```
 
 - **Permisos**
 
-```shell
+```sh
     $ sudo chmod -R 755 folder/
 ```
 
 - **Owner**
 
-```shell
+```sh
     $ sudo chown -R $USER:$USER vagrant/
 ```
 
 - **View Folder size**
 
-```shell
+```sh
     $ du -hs .
     $ du * | sort -n
 
@@ -593,38 +673,38 @@ VNCSERVERARGS[2]="-geometry 800x600 -depth 8"
 
 - **Show users - home**
 
-```shell
+```sh
     $ cat /etc/passwd |grep "/home" |cut -d: -f1
 ```
 
 - **Show users all and uid**
 
-```shell
+```sh
     $ awk -F":" '{ print "User: " $1 "\t\tuid:" $3 }' /etc/passwd
 ```
 
 - **Show users all**
 
-```shell
+```sh
     % cat /etc/passwd | cut -d ":" -f1
 ```
 
 
 - **Find Dupicate files**
 
-```shell
+```sh
     find -not -empty -type f -printf "%s\n" | sort -rn | uniq -d | xargs -I{} -n1 find -type f -size {}c -print0 | xargs -0 md5sum | sort | uniq -w32 --all-repeated=separate
 ```
 
 - **Find Dupicate files**
 
-```shell
+```sh
     fdupes -r .
 ```
 
 - **wget**
 
-```shell
+```sh
     $ wget -r -l1 --no-parent -nH -nd -P/tmp -A".gif,.jpg,.png" http://example.com/images
 ```
 
@@ -639,7 +719,7 @@ VNCSERVERARGS[2]="-geometry 800x600 -depth 8"
 
 - **Centos**
 
-```shell
+```sh
     $ vim /etc/sysconfig/iptables
 
     +++
@@ -669,7 +749,7 @@ VNCSERVERARGS[2]="-geometry 800x600 -depth 8"
 
 - **SSH Config File**
 
-```shell
+```sh
     Host *
       ServerAliveInterval 240
 
@@ -696,19 +776,19 @@ VNCSERVERARGS[2]="-geometry 800x600 -depth 8"
 
 - **Upload ssh key**
 
-```shell
+```sh
     # scp ~/.ssh/id_rsa.pub user@host:~/.ssh/authorized_keys
 ```
 
 - **Upload Files SSH**
 
-```shell
+```sh
     $ scp FILE USER@SERVER:LOCATION
 ```
 
 ## rmate
 
-```shell
+```sh
     $ curl https://raw.github.com/aurora/rmate/master/rmate > rmate
 
     $ sudo mv rmate /usr/local/bin
@@ -724,7 +804,7 @@ VNCSERVERARGS[2]="-geometry 800x600 -depth 8"
 
 ## Download full website
 
-```shell
+```sh
     $ wget \
         -p \
         --recursive \
@@ -743,26 +823,26 @@ VNCSERVERARGS[2]="-geometry 800x600 -depth 8"
 
 - View Root User Cronjob
 
-```shell
+```sh
     $ crontab -l
 ```
 
 - View Users Cronjob
 
-```shell
+```sh
     $ crontab -u userName -l
     $ crontab -u vivek -l
 ```
 
 - Install or create or edit my own cron jobs
 
-```shell
+```sh
     $ crontab -e
 ```
 
 - Syntax of crontab
 
-```shell
+```sh
     1 2 3 4 5 /path/to/command arg1 arg2
 
     # or
@@ -787,7 +867,7 @@ VNCSERVERARGS[2]="-geometry 800x600 -depth 8"
 
 **Cron examples**
 
-```shell
+```sh
     # Pull and log
     */1 * * * *   /root/crons/prototiposena.sh  >> /root/crons/logs/prototiposena.$(date +\%Y\%m\%d).log 2>&1
     */1 * * * *   /root/crons/time_stamp.sh  >> /root/crons/logs/prototiposena.$(date +\%Y\%m\%d).log 2>&1
@@ -812,14 +892,14 @@ VNCSERVERARGS[2]="-geometry 800x600 -depth 8"
 
 -  Crear archivo
 
-```shell
+```sh
     $ touch ~/.xmodmap
     $ vim ~/.xmodmap
 ```
 
 - Editar .xmodmap agregando:
 
-```shell
+```sh
     !
     ! make shift-, be < and shift-. be >
     !
@@ -840,7 +920,7 @@ VNCSERVERARGS[2]="-geometry 800x600 -depth 8"
 
 - Ejecutar
 
-```shell
+```sh
     xmodmap -verbose ~/.xmodmap
 ```
 
@@ -848,25 +928,25 @@ VNCSERVERARGS[2]="-geometry 800x600 -depth 8"
 
 - Ver teclas
 
-```shell
+```sh
     $ xmodmap -pke | less
 ```
 
 - Ver las lista de dispositivos
 
-```shell
+```sh
     $ xinput list
 ```
 
 - Diagnostico de las teclas
 
-```shell
+```sh
     $ xinput query-state 9
 ```
 
 ## Config Bandwidth
 
-```shell
+```sh
     $ sudo apt install -y trickle
 ```
 
@@ -874,7 +954,7 @@ VNCSERVERARGS[2]="-geometry 800x600 -depth 8"
 
 ## Montar Driver
 
-```shell
+```sh
     $ ll /dev/disk/by-uuid/ && ll /dev/disk/by-label/
 
     $ sudo sublime /etc/fstab
@@ -886,12 +966,12 @@ VNCSERVERARGS[2]="-geometry 800x600 -depth 8"
 
 **Descargar MountManager**
 
-```shell
+```sh
     http://ubuntuforums.org/showthread.php?t=1604251
 ```
 
 **Edit fstab**
-```shell
+```sh
     $ sudo blkid -c /dev/null
 
     +++ UUID=3ABC75AEBC756573 /home/o/Media/Disk-2  ntfs-3g defaults,auto,uid=1000,gid=1000,umask=002 0 0
