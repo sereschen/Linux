@@ -110,20 +110,20 @@ cat <<-EOF >> ~/.zshrc
 # |::::::::::::::::::>>>zsh
 source "$HOME/.antigen/antigen.zsh"
 
-# antigen bundle bundler
 # antigen bundle command-not-found
 # antigen bundle fabric
 # antigen bundle heroku
 # antigen bundle kennethreitz/autoenv
 # antigen bundle lein
-# antigen bundle node
 # antigen bundle pip
-# antigen bundle python
 # antigen bundle rake
 # antigen bundle rvm
 # antigen bundle sprunge
 # antigen bundle vundle
 
+antigen bundle bundler
+antigen bundle node
+antigen bundle python
 antigen bundle npm
 antigen bundle history
 antigen bundle rsync
@@ -141,6 +141,15 @@ antigen-apply
 EOF
 ```
 
+- **Fix Errors**
+$ rm ~/.antigen/repos/https-COLON--SLASH--SLASH-gi* -rf
+
+- **zssh**
+
+```sh
+$ sudo apt install -y zssh
+```
+
 ### Installing ZSH Centos
 
 ```bash
@@ -149,38 +158,41 @@ EOF
     $ h=`whoami` && usermod -s /bin/zsh $h
 ```
 
-- **Fix Errors**
-    $ rm ~/.antigen/repos/https-COLON--SLASH--SLASH-gi* -rf
-
-- **zssh**
-
-```sh
-    $ sudo apt install -y zssh
-```
 
 - **Nodejs**
 
 ``` bash
+
+    # :::::::: Method1
+    $ apt-get install python g++ wget libssl-dev
+    $ mkdir /tmp/nodejs && cd /tmp/nodejs
+    $ wget http://nodejs.org/dist/node-latest.tar.gz
+    $ tar xzvf node-latest.tar.gz && cd node-v*
+    $ ./configure
+    $ make
+    $ make test
+    $ make install
+    # :::::::: .Method1
+
+    # :::::::: Method2
     $ sudo add-apt-repository ppa:chris-lea/node.js -y  && sudo apt update && sudo apt install -y  nodejs
-
     $ npm config set prefix ~/.npm
-
     $ sudo mkdir ~/tmp
+    $ sudo mkdir ~/npm
     $ sudo chown -R $USER:$USER ~/tmp/
     $ sudo chown -R $USER:$USER ~/.npm
-
-    $ cd /usr/local/share/zsh && sudo chmod -R 755 ./site-functions && sudo chown -R root:root ./site-functions && cd
-
     $ sudo npm update -g
+    $ sudo chown -R $USER:$USER ~/.npm
+    # ::::::: .Method2
+
 
 cat <<-EOF >> ~/.zshrc
-
 # |::::::::::::::::::>>>npm
 # | Path for nodejs and npm
 export PATH=$HOME/npm/.bin:$PATH
 export NODE_PATH=/usr/lib/nodejs:/usr/lib/node:/usr/lib/node_modules:/usr/share/javascript:/usr/local/lib/node_modules:$HOME/.npm:$HOME/.npm/lib/node_modules
 export PATH=$HOME/.npm/bin:$PATH
-# |::::::::::::::::::<<<
+# |::::::::::::::::::<<<npm
 EOF
 
     $ source ~/.zshrc
@@ -189,11 +201,14 @@ EOF
 -*Packages*
 
 ```sh
-    # **Bower**
     $ npm install -g bower
-
-    # **Less**
     $ npm install -g less
+    $ npm install -g grunt
+    $ npm install -g grunt-cli
+
+
+    # **Watch files and run a command when they change**
+    $ npm install -g wr
 
     # **Yeoman**
     $ npm install -g yo
@@ -229,7 +244,7 @@ EOF
 ```sh
     $ \curl -sSL https://get.rvm.io | bash -s stable --ruby
 
-	$ source ~/.rvm/scripts/rvm
+    $ source ~/.rvm/scripts/rvm
 ```
 
 - **Gufw**
@@ -286,9 +301,13 @@ EOF
     $ sudo apt install -y nitrotasks
 ```
 
+```sh
+    $ sudo apt install -y daemonfs
+```
+
 - **Install Pantheon Desktop Environment**
 
-``` bash
+```sh
     $ sudo apt-add-repository -y ppa:elementary-os/daily && sudo apt update && sudo apt install -y  elementary-theme elementary-icon-theme
 ```
 
@@ -303,9 +322,7 @@ EOF
 - **Grub Customizer**
 
 ```sh
-    $ sudo add-apt-repository ppa:danielrichter2007/grub-customizer
-    $ sudo apt update
-    $ sudo apt install grub-customizer
+    $ sudo add-apt-repository -y ppa:danielrichter2007/grub-customizer; sudo apt update; sudo apt install -y grub-customizer
 ```
 
 - **Cairo-Dock**
@@ -318,6 +335,12 @@ EOF
 
 ```sh
     $ sudo apt install samba system-config-samba cifs-utils winbind
+```
+
+- **Sigil**
+
+```sh
+    $ sudo add-apt-repository -y ppa:sunab/sigil-git; sudo apt -y update; sudo apt install sigil
 ```
 
 - **Java**
@@ -425,80 +448,88 @@ xsetroot -solid grey
 vncconfig -iconic &
 ```
 
+
 ```sh
     $ vncserver -kill :1
     $ exit
     $ vi /etc/init.d/vncserver
 ```
 
-```sh
-#!/bin/bash
+```shell
+    #!/bin/bash
 
-unset VNCSERVERARGS
-VNCSERVERS=""
-[ -f /etc/vncserver/vncservers.conf ] && . /etc/vncserver/vncservers.conf
-prog=$"VNC server"
-start() {
- . /lib/lsb/init-functions
- REQ_USER=$2
- echo -n $"Starting $prog: "
- ulimit -S -c 0 >/dev/null 2>&1
- RETVAL=0
- for display in ${VNCSERVERS}
- do
- export USER="${display##*:}"
- if test -z "${REQ_USER}" -o "${REQ_USER}" == ${USER} ; then
- echo -n "${display} "
- unset BASH_ENV ENV
- DISP="${display%%:*}"
- export VNCUSERARGS="${VNCSERVERARGS[${DISP}]}"
- su ${USER} -c "cd ~${USER} && [ -f .vnc/passwd ] && vncserver :${DISP} ${VNCUSERARGS}"
- fi
- done
-}
-stop() {
- . /lib/lsb/init-functions
- REQ_USER=$2
- echo -n $"Shutting down VNCServer: "
- for display in ${VNCSERVERS}
- do
- export USER="${display##*:}"
- if test -z "${REQ_USER}" -o "${REQ_USER}" == ${USER} ; then
- echo -n "${display} "
- unset BASH_ENV ENV
- export USER="${display##*:}"
- su ${USER} -c "vncserver -kill :${display%%:*}" >/dev/null 2>&1
- fi
- done
- echo -e "\n"
- echo "VNCServer Stopped"
-}
-case "$1" in
-start)
-start $@
-;;
-stop)
-stop $@
-;;
-restart|reload)
-stop $@
-sleep 3
-start $@
-;;
-condrestart)
-if [ -f /var/lock/subsys/vncserver ]; then
-stop $@
-sleep 3
-start $@
-fi
-;;
-status)
-status Xvnc
-;;
-*)
-echo $"Usage: $0 {start|stop|restart|condrestart|status}"
-exit 1
-esac
+    unset VNCSERVERARGS
+    VNCSERVERS=""
+    [ -f /etc/vncserver/vncservers.conf ] && . /etc/vncserver/vncservers.conf
+    prog=$"VNC server"
+    start() {
+        . /lib/lsb/init-functions
+        REQ_USER=$2
+        echo -n $"Starting $prog: "
+        ulimit -S -c 0 >/dev/null 2>&1
+        RETVAL=0
+        for display in ${VNCSERVERS}
+        do
+        export USER="${display##*:}"
+        if test -z "${REQ_USER}" -o "${REQ_USER}" == ${USER} ; then
+        echo -n "${display} "
+        unset BASH_ENV ENV
+        DISP="${display%%:*}"
+        export VNCUSERARGS="${VNCSERVERARGS[${DISP}]}"
+        su ${USER} -c "cd ~${USER} && [ -f .vnc/passwd ] && vncserver :${DISP} ${VNCUSERARGS}"
+        fi
+        done
+    }
+    stop() {
+        . /lib/lsb/init-functions
+        REQ_USER=$2
+        echo -n $"Shutting down VNCServer: "
+        for display in ${VNCSERVERS}
+        do
+        export USER="${display##*:}"
+        if test -z "${REQ_USER}" -o "${REQ_USER}" == ${USER} ; then
+        echo -n "${display} "
+        unset BASH_ENV ENV
+        export USER="${display##*:}"
+        su ${USER} -c "vncserver -kill :${display%%:*}" >/dev/null 2>&1
+        fi
+        done
+        echo -e "\n"
+        echo "VNCServer Stopped"
+    }
+    case "$1" in
+
+        start)
+            start $@
+        ;;
+
+        stop)
+            stop $@
+        ;;
+
+        restart|reload)
+            stop $@
+            sleep 3
+            start $@
+        ;;
+
+        condrestart)
+            if [ -f /var/lock/subsys/vncserver ]; then
+                stop $@
+                sleep 3
+                start $@
+            fi
+        ;;
+
+        status)
+            status Xvnc
+        ;;
+
+        *)
+        echo $"Usage: $0 {start|stop|restart|condrestart|status}"
+        exit 1
+    esac
+
 ```
 
 ```sh
@@ -508,15 +539,15 @@ esac
 ```
 
 ```sh
-VNCSERVERS="1:master 2:root"
+    VNCSERVERS="1:master 2:root"
 
-VNCSERVERARGS[1]="-geometry 1440x768"
-VNCSERVERARGS[1]="-geometry 1920x1080 -depth 24"
-VNCSERVERARGS[1]="-geometry 800x600 -depth 8"
+    VNCSERVERARGS[1]="-geometry 1440x768"
+    VNCSERVERARGS[1]="-geometry 1920x1080 -depth 24"
+    VNCSERVERARGS[1]="-geometry 800x600 -depth 8"
 
-VNCSERVERARGS[2]="-geometry 1440x768"
-VNCSERVERARGS[2]="-geometry 1920x1080 -depth 24"
-VNCSERVERARGS[2]="-geometry 800x600 -depth 8"
+    VNCSERVERARGS[2]="-geometry 1440x768"
+    VNCSERVERARGS[2]="-geometry 1920x1080 -depth 24"
+    VNCSERVERARGS[2]="-geometry 800x600 -depth 8"
 ```
 
 ```sh
@@ -656,25 +687,97 @@ VNCSERVERARGS[2]="-geometry 800x600 -depth 8"
     $ du -am /var | sort -n -r | head -n 10
     $ du -hsx * | sort -rh | head -10
 
-
 ```
 
-- **Find**
+### **Find**
 
-```
-        # Get all extensions and their respective file count in a directory
+-  **Get all extensions and their respective file count in a directory**
+
+```sh
     $ find ./ -type f | grep -E ".*\.[a-zA-Z0-9]*$" | sed -e 's/.*\(\.[a-zA-Z0-9]*\)$/\1/' | sort | uniq -c | sort -n
+```
 
-        # Make the "tree" command pretty and useful by default
+- **Make the "tree" command pretty and useful by default**
+
+```sh
     alias tree="tree -CAFa -I 'CVS|*.*.package|.svn|.git' --dirsfirst"
 ```
 
-## Otros Comandos
+- **Find file on specific day**
+
+```sh
+    $ find ./ -type f -ls | grep 'jun'
+```
+
+- **Find executable files**
+
+```sh
+    $ find . -perm /a=x -type f
+```
+
+- **Find and count files with extention**
+
+```sh
+    $ find . -type f -name "*.php" | wc -l
+```
+
+- **Count all the lines of code in a directory recursively**
+
+```sh
+    $ find . -name '*.php' | xargs wc -l
+```
+
+- **Find modified files on especific day**
+
+```sh
+    $ find ./ -type f -ls | grep 'jun'
+
+    #with exclude directory
+    $ find ./ -type f ! -path "./.git/*" -ls | grep 'jun'
+```
+
+- **Find Dupicate files**
+
+```sh
+    $ find -not -empty -type f -printf "%s\n" | sort -rn | uniq -d | xargs -I{} -n1 find -type f -size {}c -print0 | xargs -0 md5sum | sort | uniq -w32 --all-repeated=separate
+
+    # Duplicate Files
+    $ sudo apt-get install -y fdupes
+
+    $ fdupes -r .
+```
+
+- **Count Lines of Code - Using Cloc**
+
+```sh
+    $ sudo apt install -y cloc
+
+    $ cloc .
+
+    $ cloc --exclude-lang=DTD,Lua,make,Python .
+
+    $ find . -name "*.php" | xargs cloc
+```
+
+- **Git Cloc**
+
+```sh
+    $ git clone https://github.com/kaelzhang/git-cloc.git
+
+    $ cd git-cloc
+
+    $ sudo make install
+
+    Ex:
+        git cloc -r
+        git cloc
+        git cloc --month 2014-6
+```
 
 - **Show users - home**
 
 ```sh
-    $ cat /etc/passwd |grep "/home" |cut -d: -f1
+    $ cat /etc/passwd | grep "/home" |cut -d: -f1
 ```
 
 - **Show users all and uid**
@@ -689,31 +792,35 @@ VNCSERVERARGS[2]="-geometry 800x600 -depth 8"
     % cat /etc/passwd | cut -d ":" -f1
 ```
 
-
-- **Find Dupicate files**
-
-```sh
-    find -not -empty -type f -printf "%s\n" | sort -rn | uniq -d | xargs -I{} -n1 find -type f -size {}c -print0 | xargs -0 md5sum | sort | uniq -w32 --all-repeated=separate
-```
-
-- **Find Dupicate files**
-
-```sh
-    fdupes -r .
-```
-
 - **wget**
 
 ```sh
     $ wget -r -l1 --no-parent -nH -nd -P/tmp -A".gif,.jpg,.png" http://example.com/images
 ```
 
-## Ver Paquetes instalados
+- **Get External IP**
+
+```sh
+    $ curl http://ipecho.net/plain; echo
+
+    $ lynx --dump http://ipecho.net/plain
+
+    $ curl http://whatismyip.org/
+```
+
+- **Get Internal IP**
+
+```sh
+    $ /sbin/ifconfig eth0 | grep "inet addr" | awk -F: '{print $2}' | awk '{print $1}'
+```
 
 - **Todos los paquetes instaldados**
 
+```sh
     $ dpkg --get-selections >> paquetes-instalados.txt
 
+    $ grep install /var/log/dpkg.log >> paquetes-instalados.txt
+```
 
 ## Open ports
 
@@ -989,9 +1096,7 @@ VNCSERVERARGS[2]="-geometry 800x600 -depth 8"
 ## Descomprimir a traves de php
 
 ```php
-    <?php
-        exec('tar -xzf SecretariaSalud.tar.gz',$ret);
-    ?>
+    exec('tar -xzf SecretariaSalud.tar.gz',$ret);
 ```
 
 
@@ -1033,5 +1138,11 @@ VNCSERVERARGS[2]="-geometry 800x600 -depth 8"
 
 ## Web Dev Utils
 
-- **Koala**
-- **Pleeease - http://pleeease.io/**
+- **Koala** - http://koala-app.com/
+- **Pleeease** - http://pleeease.io/
+
+# Alias
+
+```sh
+    alias = git ls-files -v | grep '^[[:lower:]]'
+```
