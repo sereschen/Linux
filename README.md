@@ -16,7 +16,7 @@
     # Essential tools for compiling from sources
     $ sudo apt install -y checkinstall cdbs devscripts dh-make fakeroot libxml-parser-perl check
 
-    $ USERME=`whoami` && sudo ln -s /media/$USERME/Tera/Apps/SublimeText3/sublime_text /usr/bin/sublime
+    $ USERME=`whoami` && sudo ln -s /opt/sublime_text/sublime_text /usr/bin/sublime
 ```
 
 - **Puppet**
@@ -62,29 +62,16 @@
     (cd /tmp && git clone --depth 1 https://github.com/visionmedia/git-extras.git && cd git-extras && sudo make install)
 ```
 
-- **zsh - vim**
 
-```sh
-    $ sudo apt install -y \
-            vim \
-            zsh
-
-    $ w=`which zsh` &&  h=`whoami` && sudo chsh -s $w $h
-```
-
-## Installing ZSH
+## Install ZSH
 
 ```bash
     $ sudo apt-get update
 
-    $ sudo apt-get install -y \
-        curl \
-        vim \
-        git \
-        zsh
+    $ sudo apt-get install -y zsh
 ```
 
-- **Installing Oh-My-ZSH**
+- **Install Oh-My-ZSH**
 
 ```bash
     $ curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | bash
