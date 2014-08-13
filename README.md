@@ -228,6 +228,20 @@ EOF
 
 - **Ruby**
 
+- **Phython**
+
+```sh
+  $ sudo apt-get install python-dev libxml2-dev libxslt1-dev antiword poppler-utils pstotext
+
+  $ wget https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py
+
+  $ sudo python ez_setup.py
+
+  $ sudo easy_install pip
+
+  $ sudo pip install textract
+```
+
 ```sh
     $ \curl -sSL https://get.rvm.io | bash -s stable --ruby
 
